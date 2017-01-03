@@ -1,7 +1,12 @@
 <?php
-namespace app\index\controller;
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2017/1/3
+ * Time: 17:30
+ */
+namespace app\test\controller;
 use think\Controller;
-
 
 class Index extends Controller
 {
