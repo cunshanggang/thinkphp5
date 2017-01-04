@@ -17,7 +17,7 @@ class Index extends Controller
         $arr = array(
             'name' => 'yaoMing',
             'gender' => 'male',
-            'height' => '2.26m'
+            'height' => '2.260m'
         );
 
         $view = new View;
