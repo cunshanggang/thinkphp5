@@ -39,6 +39,12 @@ class Index extends Controller
 
     public function query1() {
     $sql = Db::table('tp_student')->select();
+//        $sql = $this->table('tp_student')->select();
+        $data = array(
+            'name' => '郜林',
+            'age' => '28'
+        );
+        Db::table('tp_student')->field('name,age')->insert($data);
         echo "<pre>";
         print_r($sql);
         echo "</pre>";
