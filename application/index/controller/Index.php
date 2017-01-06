@@ -2,6 +2,7 @@
 namespace app\index\controller;
 use think\Controller;
 use think\View;
+use think\Db;
 
 
 class Index extends Controller
