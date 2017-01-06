@@ -1,14 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>测试git push</title>
+    <title>测试</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/main.css">
 </head>
 <body>
-hello world!
-<p></p>
-{$arr.name}
-{$age}
-{$user.nickname|default="这家伙很懒，什么也没留下"}
+<p>变量赋值：{$name}</p>
+<p>遍历数组</p>
+{foreach name="list" item="vo" key="key"}
+{$key}{$vo}
+{/foreach}
+
+{$Think.APP_PATH}
 </body>
 </html>

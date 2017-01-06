@@ -14,23 +14,32 @@ class Index extends Controller
 //        return view('index.html');
 //        return $view->fetch()
         $this->assign('name','ThinkPHP');
-        $arr = array(
+        $list = array(
             'name' => 'yaoMing',
             'gender' => 'male',
             'height' => '2.260m'
         );
 
-        $view = new View;
-        $view->age = 18;
+//        $view = new View;
+//        $view->age = 18;
 //        return $this->fetch('index');
-//        $this->assign("arr",$arr);
-        $view->assign("arr",$arr);
-        return $view->fetch();
+        $this->assign("list",$list);
+//        echo __PUBLIC__;
+        //$view->assign("arr",$arr);
+        //var_dump(__PUBLIC__);
+        return $this->fetch('index');
 
     }
 
     public function hello() {
         return  "Hello World!";
 //        $this->display();
+    }
+
+    public function query1() {
+    $sql = Db::table('tp_student')->select();
+        echo "<pre>";
+        print_r($sql);
+        echo "</pre>";
     }
 }

@@ -226,6 +226,11 @@ return [
     'paginate'               => [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
-        'list_rows' => 15,
+        'list_rows' => 15
     ],
+
+    'view_replace_str'  =>  [
+        '__PUBLIC__'=>'public',
+    ]
+
 ];
