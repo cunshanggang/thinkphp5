@@ -38,15 +38,48 @@ class Index extends Controller
     }
 
     public function query1() {
-    $sql = Db::table('tp_student')->select();
+        $str = file_get_contents("D:\\www\\htdocs\\thinkphp5\\application\\index\\controller\\idCard.txt");
+        preg_match_all("/(.*?)(\\r\\n)/",$str,$match);
+        $res = array();
+        $res1 = array();
+        foreach($match[0] as $key=>$value) {
+            $res[$key] = preg_replace("/\\s+/",' ',$value);
+            foreach($res as $k=>$v) {
+                $res1[$k] = explode(" ",$v);
+                array_pop($res1[$k]);
+                $res1[$k][5] = $res1[$k][5].' '.$res1[$k][6];
+                array_splice($res1[$k],6,1);
+            }
+        }
+
+//    $sql = Db::table('tp_student')->select();
 //        $sql = $this->table('tp_student')->select();
-        $data = array(
-            'name' => '郜林',
-            'age' => '28'
-        );
-        Db::table('tp_student')->field('name,age')->insert($data);
-        echo "<pre>";
-        print_r($sql);
-        echo "</pre>";
+//        $data = array(
+//            'name' => '郜林',
+//            'age' => '28'
+//        );
+        $data = "";
+        foreach($res1 as $key=>$value) {
+            $data['num'] = $value['0'];
+            $data['platform'] = $value['1'];
+            $data['name'] = $value['2'];
+            $data['type'] = $value['3'];
+            $data['idcard'] = $value['4'];
+            $data['time'] = $value['5'];
+            $data['code'] = $value['6'];
+            $data['note'] = $value['7'];
+//            echo "<pre>";
+//            print_r($data);
+//            print_r($value);
+//            echo "</pre>";
+//            echo "<hr>";
+            Db::table('tp_information')->field('num,platform,name,type,idcard,time,code,note')->insert($data);
+        }
+//        Db::table('tp_information')->field('num,platform,name,type,idcard,time,code,note')->insert($data);
+//        echo "<pre>";
+//        print_r($data);
+//        echo "</pre>";exit;
+
+
     }
 }
