@@ -4,11 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>测试</title>
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../__PUBLIC__/css/main.css">
 </head>
 <body>
 <p>变量赋值：{$name}</p>
 <p>遍历数组</p>
+<?php
+echo '<pre>';
+print_r($list);
+echo '</pre>';
+?>
 {foreach name="list" item="vo" key="key"}
 {$key}{$vo}
 {/foreach}
