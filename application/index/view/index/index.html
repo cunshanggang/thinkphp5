@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../../__PUBLIC__/css/main.css">
 </head>
 <body>
+{// yaoming}
+{/* yaoming*/}
 <p>变量赋值：{$name}</p>
 <p>遍历数组</p>
 <?php
@@ -14,9 +16,15 @@ echo '<pre>';
 print_r($list);
 echo '</pre>';
 ?>
+<!-- 加注释符号依然能读取变量 -->
+<!-- {foreach name="list" item="vo" key="key"} -->
+{$key}{$vo}
+<!-- {/foreach} -->
+<hr>
 {foreach name="list" item="vo" key="key"}
 {$key}{$vo}
 {/foreach}
+
 
 {$Think.APP_PATH}
 </body>
