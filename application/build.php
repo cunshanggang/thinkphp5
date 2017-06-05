@@ -14,7 +14,7 @@ return [
     '__file__' => ['common.php', 'config.php', 'database.php'],
     // 其他更多的模块定义
     'study'     => [
-        '__file__'   => ['common.php'],
+        '__file__'   => ['common.php', 'config.php', 'database.php'],
         '__dir__'    => ['behavior', 'controller', 'model', 'view'],
         'controller' => ['Index', 'Test', 'UserType'],
         'model'      => [],

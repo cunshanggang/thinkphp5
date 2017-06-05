@@ -12,4 +12,7 @@ define('APP_PATH', __DIR__ . '/application/');
 
 // 加载框架引导文件
 require __DIR__ . '/thinkphp/start.php';
-define('APP_AUTO_BUILD',true);
+// 读取自动生成定义文件
+$build = include APP_PATH.'build.php';
+// 运行自动生成
+\think\Build::run($build);
