@@ -5,9 +5,7 @@
  * Date: 2017/6/23
  * Time: 14:45
  */
-namespace app\study\controller;
-namespace aaa;
-use think\Controller;
+namespace app\study\validate;
 use think\Validate;
 class User extends Validate
 {
