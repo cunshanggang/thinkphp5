@@ -1,6 +1,9 @@
 <?php
 namespace app\study\controller;
 use think\Controller;
+use think\Loader;
+use think\Validate;
+use aaa;
 class Index extends Controller
 {
     public function index()
@@ -12,7 +15,42 @@ class Index extends Controller
     }
 
     public function add() {
+//        echo "<pre>";
+//        print_r($_REQUEST);
+        //判断是否为POST提交，助手函数：request()->isPost()
+//        if(request()->isPost()) {
+//            echo "是POST提交！";
+//        }
+
+    //独立验证
+//        $validate = new Validate([
+//            'userName'  => 'require|max:25',
+//        ]);
+    //规则
+        $rule = [
+            'userName'  => 'require|max:1',
+        ];
+    //信息
+        $msg = [
+            'userName.require' => '名称必须',
+            'userName.max'     => '名称最多不能超过1个字符',
+        ];
+//        $data = [
+//            'name'  => 'thinkphp',
+//            'email' => 'thinkphp@qq.com'
+//        ];
+    //使用
+        $validate = new Validate($rule,$msg);
+        $result   = $validate->check($_POST['userName']);
         echo "<pre>";
-        print_r($_REQUEST);
+        print_r($result);
+        echo "</pre>";
+
+//        $validate = Loader::validate('User');
+//        if(!$validate->check($_POST['userName'])){
+//            dump($validate->getError());
+//        }
+
+
     }
 }
