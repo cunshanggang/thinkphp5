@@ -13,5 +13,9 @@
     <input type="submit" value="提交">
 </form>
 <a href="{:url('Index/add')}">111</a>
+<form action="{:url('Index/upload')}" enctype="multipart/form-data" method="post">
+    <input type="file" name="image" /> <br>
+    <input type="submit" value="上传" />
+</form>
 </body>
 </html>
