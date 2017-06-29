@@ -2,7 +2,7 @@
 namespace app\study\controller;
 use think\Controller;
 use think\Loader;
-use Think\UploadFile;
+use Think\Upload;
 use think\Validate;
 class Index extends Controller
 {
@@ -78,6 +78,10 @@ class Index extends Controller
         }
     }
 
+    //引入类库
+    function impClass() {
+        v
+    }
     //导入数据
     function impUser(){
         if (!empty($_FILES)) {
