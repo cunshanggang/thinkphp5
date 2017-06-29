@@ -305,6 +305,10 @@ class Loader
      */
     public static function import($class, $baseUrl = '', $ext = EXT)
     {
+        echo $class;
+        echo "<br>";
+        echo $baseUrl;
+        echo "<br>";
         static $_file = [];
         $key          = $class . $baseUrl;
         $class        = str_replace(['.', '#'], [DS, '.'], $class);
@@ -330,7 +334,10 @@ class Loader
         } elseif (substr($baseUrl, -1) != DS) {
             $baseUrl .= DS;
         }
+//        echo $baseUrl;
+//        echo "<br>";
         // 如果类存在 则导入类库文件
+//        $baseUrl = 'D:\www\htdocs\thinkphp5\extend';
         if (is_array($baseUrl)) {
             foreach ($baseUrl as $path) {
                 $filename = $path . DS . $class . $ext;

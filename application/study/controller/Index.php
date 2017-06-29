@@ -88,7 +88,7 @@ class Index extends Controller
 //        $test = new \test1\Test1();
 //        print_r($r);
 //        echo EXTEND_PATH;
-        Loader::import('test.Test1');
+        var_dump(Loader::import('test.Test1',EXTEND_PATH));
         $test = new \Test1();
         $test->show();
     }
@@ -150,5 +150,9 @@ class Index extends Controller
         {
             $this->error("请选择上传的文件");
         }
+    }
+
+    public function hello() {
+        echo "Hello World!";
     }
 }

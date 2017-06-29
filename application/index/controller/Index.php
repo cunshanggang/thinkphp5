@@ -3,6 +3,7 @@ namespace app\index\controller;
 use think\Controller;
 use think\View;
 use think\Db;
+use think\Loader;
 
 
 class Index extends Controller
@@ -33,7 +34,7 @@ class Index extends Controller
     }
 
     public function hello() {
-        return  "Hello World!";
+        echo  "Hello World!";
 //        $this->display();
     }
 
@@ -81,5 +82,11 @@ class Index extends Controller
 //        echo "</pre>";exit;
 
 
+    }
+
+    public function impClass() {
+        Loader::import('test1/Test1');
+        $test = new \Test1();
+        $test->show();
     }
 }
