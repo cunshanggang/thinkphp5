@@ -2,8 +2,8 @@
 namespace app\study\controller;
 use think\Controller;
 use think\Loader;
-use Think\Upload;
 use think\Validate;
+use think\Vendor;
 class Index extends Controller
 {
     public function index()
@@ -79,8 +79,18 @@ class Index extends Controller
     }
 
     //引入类库
-    function impClass() {
-        v
+    public function impClass() {
+//        echo '789798';
+        //引入类文件的三种方法
+        //1.使用 vendor()
+//        vendor("test1.test1",'.class.php');
+        //2.直接实例化
+//        $test = new \test1\Test1();
+//        print_r($r);
+//        echo EXTEND_PATH;
+        Loader::import('test.Test1');
+        $test = new \Test1();
+        $test->show();
     }
     //导入数据
     function impUser(){
