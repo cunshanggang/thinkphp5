@@ -334,8 +334,8 @@ class Loader
         } elseif (substr($baseUrl, -1) != DS) {
             $baseUrl .= DS;
         }
-//        echo $baseUrl;
-//        echo "<br>";
+        echo $baseUrl;
+        echo "<br>";
         // 如果类存在 则导入类库文件
 //        $baseUrl = 'D:\www\htdocs\thinkphp5\extend';
         if (is_array($baseUrl)) {
@@ -349,6 +349,8 @@ class Loader
             $filename = $baseUrl . $class . $ext;
         }
 
+        echo $filename;
+        echo "<hr>";
         if (!empty($filename) && is_file($filename)) {
             // 开启调试模式Win环境严格区分大小写
             if (IS_WIN && pathinfo($filename, PATHINFO_FILENAME) != pathinfo(realpath($filename), PATHINFO_FILENAME)) {

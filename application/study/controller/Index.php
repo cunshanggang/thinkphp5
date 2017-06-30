@@ -1,5 +1,6 @@
 <?php
 namespace app\study\controller;
+use test1\Test1;
 use think\Controller;
 use think\Loader;
 use think\Validate;
@@ -84,13 +85,34 @@ class Index extends Controller
         //引入类文件的三种方法
         //1.使用 vendor()
 //        vendor("test1.test1",'.class.php');
-        //2.直接实例化
-//        $test = new \test1\Test1();
+        //2.直接实例化,在头部使用命名空间：use \test1\Test1;
+//        $test = new Test1();
+//        $test->show();
 //        print_r($r);
 //        echo EXTEND_PATH;
-        var_dump(Loader::import('test.Test1',EXTEND_PATH));
-        $test = new \Test1();
-        $test->show();
+//        var_dump(Loader::import('test1.Test1',EXTEND_PATH));
+//        Loader::import('test1.Test1',EXTEND_PATH);
+//        $test = new \Test1();
+        //检查文件是否被引入
+        //------- start --------
+//        $included_files = get_included_files();
+//        foreach ($included_files as $filename) {
+//            echo "$filename\n";
+//        }
+        //------- end ---------
+//        $hello = new \first\second\Foo();
+//        $hello->hello();
+        Loader::import('first.second.Foo');
+        $foo = new \Foo();
+//        echo "<pre>";
+//        print_r($foo);
+        echo "54545";
+        echo "<hr>";
+        var_dump(class_exists("Foo"));
+//        $foo->hello();
+//        $test = new \Test1();
+//        $test->show();
+
     }
     //导入数据
     function impUser(){
@@ -114,8 +136,8 @@ class Index extends Controller
             $objReader = PHPExcel_IOFactory::createReader('Excel5');
             $objPHPExcel = $objReader->load($file_name,$encode='utf-8');
             $sheet = $objPHPExcel->getSheet(0);
-            $highestRow = $sheet->getHighestRow(); // 取得总行数
-            $highestColumn = $sheet->getHighestColumn(); // 取得总列数
+            $highestRow = $sheet->getHighestRow(); //取得总行数
+            $highestColumn = $sheet->getHighestColumn(); //取得总列数
             for($i=3;$i<=$highestRow;$i++)
             {
                 $data['account']= $data['truename'] = $objPHPExcel->getActiveSheet()->getCell("B".$i)->getValue();
