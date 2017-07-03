@@ -1,10 +1,10 @@
 <?php
 namespace app\study\controller;
-use test1\Test1;
+//use test1\Test1;
+//use test1\Test1;
 use think\Controller;
 use think\Loader;
 use think\Validate;
-use think\Vendor;
 class Index extends Controller
 {
     public function index()
@@ -108,6 +108,7 @@ class Index extends Controller
 //        print_r($foo);
         echo "54545";
         echo "<hr>";
+        $test1 = new Test1();
         var_dump(class_exists("Foo"));
 //        $foo->hello();
 //        $test = new \Test1();
@@ -116,27 +117,101 @@ class Index extends Controller
     }
     //导入数据
     function impUser(){
-        if (!empty($_FILES)) {
-            import("@.ORG.UploadFile");
-            $config=array(
-                'allowExts'=>array('xlsx','xls'),
-                'savePath'=>'./Public/upload/',
-                'saveRule'=>'time',
-            );
-            $upload = new UploadFile($config);
-            if (!$upload->upload()) {
-                $this->error($upload->getErrorMsg());
-            } else {
-                $info = $upload->getUploadFileInfo();
+//        $file = request()->file('import');
+//        echo "<pre>";
+//        print_r($file);
+//        echo "</pre>";exit;
+//        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'. DS . 'excel');
 
+//        echo "<pre>";
+//        print_r($info);
+//        echo "</pre>";//exit;
+//        if($info){
+//            // 成功上传后 获取上传信息
+//            // 输出 jpg
+//            echo $info->getExtension();
+//            echo "<hr>";
+//            // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
+//            echo $info->getSaveName();//不知道怎么来的
+//            echo "<hr>";
+//            // 输出 42a79759f284b767dfcb2a0197904287.jpg
+//            echo $info->getFilename();
+//        }else{
+//            // 上传失败获取错误信息
+//            echo $file->getError();
+//        }
+        //exit;
+//        if (!empty($_FILES)) {
+//            $config=array(
+//                'allowExts'=>array('xlsx','xls'),
+//                'savePath'=>'./Public/upload/',
+//                'saveRule'=>'time',
+//            );
+//            $upload = new UploadFile($config);
+//            if (!$upload->upload()) {
+//                $this->error($upload->getErrorMsg());
+//            } else {
+//                $info = $upload->getUploadFileInfo();
+//
+//            }
+
+//            $file_name = $info->getSaveName();
+//        echo $file_name;exit;
+//        echo EXTEND_PATH;exit;
+//        echo dirname(__FILE__);
+//        echo "<hr>";
+//        require_once ('../../'.'PHPExcel'.'/'.'PHPExcel'.'/'.'IOFactory.php');
+//        echo "<pre>";
+//        print_r($_FILES);
+//        $filePath = $_FILES['import']['tmp_name'];
+//        $PHPExcel = new PHPExcel();
+        include 'D:\www\htdocs\thinkphp5\extend\test1\Test1.php';
+        $test = new Test1();
+        echo $test->show();exit;
+
+        /**默认用excel2007读取excel，若格式不对，则用之前的版本进行读取*/
+        $PHPReader = new PHPExcel_Reader_Excel2007();
+        if(!$PHPReader->canRead($filePath)){
+            $PHPReader = new PHPExcel_Reader_Excel5();
+            if(!$PHPReader->canRead($filePath)){
+                echo 'no Excel';
+                return ;
             }
+        }
 
-            vendor("PHPExcel.PHPExcel");
-            $file_name=$info[0]['savepath'].$info[0]['savename'];
-            $objReader = PHPExcel_IOFactory::createReader('Excel5');
+        $PHPExcel = $PHPReader->load($filePath);
+        /**读取excel文件中的第一个工作表*/
+        $currentSheet = $PHPExcel->getSheet(0);
+
+        /**取得最大的列号*/
+        $allColumn = $currentSheet->getHighestColumn();
+        /**取得一共有多少行*/
+        $allRow = $currentSheet->getHighestRow();
+        $data = array();
+        /**从第二行开始输出，因为excel表中第一行为列名*/
+        for($rowIndex=1;$rowIndex<=$allRow;$rowIndex++){//循环读取每个单元格的内容。注意行从1开始，列从A开始
+            for($colIndex='A';$colIndex<=$allColumn;$colIndex++){
+                $addr = $colIndex.$rowIndex;
+//        echo $addr;
+//        echo "<hr>";
+                $cell = $currentSheet->getCell($addr)->getValue();
+//        echo "<pre>";
+//        print_r($cell);
+//        echo "</pre>";//exit;
+                if($cell instanceof PHPExcel_RichText){ //富文本转换字符串
+                    $cell = $cell->__toString();
+                }
+                $data[$rowIndex][$colIndex] = $cell;
+            }
+        }
+echo "<pre>";
+        print_r($data);
+        echo "</pre>";exit;
+        $objReader = \PHPExcel_IOFactory::createReader('Excel5');
             $objPHPExcel = $objReader->load($file_name,$encode='utf-8');
             $sheet = $objPHPExcel->getSheet(0);
             $highestRow = $sheet->getHighestRow(); //取得总行数
+        echo $highestRow;
             $highestColumn = $sheet->getHighestColumn(); //取得总列数
             for($i=3;$i<=$highestRow;$i++)
             {
@@ -167,11 +242,11 @@ class Index extends Controller
                 M('Member')->add($data);
 
             }
-            $this->success('导入成功！');
-        }else
-        {
-            $this->error("请选择上传的文件");
-        }
+//            $this->success('导入成功！');
+//        }else
+//        {
+//            $this->error("请选择上传的文件");
+//        }
     }
 
     public function hello() {
