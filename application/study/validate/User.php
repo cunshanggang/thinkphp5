@@ -10,12 +10,12 @@ use think\Validate;
 class User extends Validate
 {
     protected $rule =   [
-        'userName'  => 'require|max:25',
+        'userName'  => 'require|min:2',
     ];
 
     protected $message  =   [
         'userName.require' => '名称必须',
-        'userName.max'     => '名称最多不能超过25个字符',
+        'userName.min'     => '名称最多不能超过25个字符',
     ];
 
 }

@@ -46,10 +46,17 @@ class Index extends Controller
 //        echo "<pre>";
 //        print_r($result);
 //        echo "</pre>";
-
+//        print_r($_POST['userName']);
+        $data = input();//输出的是数组
+//        $data = input('post.');//输出的是数组
+//        $data = input('post.userName');//输出是字符串
+        echo "<pre>";
+        var_dump($data);
         $validate = Loader::validate('User');
-        if(!$validate->check($_POST['userName'])){
-            dump($validate->getError());
+        if(!$validate->check($data)){
+            echo "<pre>";
+            print_r($validate->getError());
+//            dump($validate->getError());
         }
 
 
