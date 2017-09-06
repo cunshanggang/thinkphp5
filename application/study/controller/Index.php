@@ -376,10 +376,35 @@ echo "<pre>";
 //            echo "<hr>";
 //        }
         */
+
+        /*
+        //查询一条数据并更新一条数据
+        $result = User::get(1);
+        //将name改为"林依蓝"
+        $result['name'] = '林依蓝';
+        if(false !== $result->save()){
+            return "插入成功";
+        }else{
+            return $result->getError();
+        }
+        */
+
+        //查询一条数据，并插入一条新的数据,该数据与查询出来的数据只有某一字段的值不一样
+        $result = User::get(1);
+        //需要id值滞空
+        $result->id = null;
+        //告诉系统是插入save不是update,isUpade(false);当使用get()方法时，系统默认为isUpdate(true)
+        if($result->isUpdate(false)->save()){
+            return "插入成功";
+        }else{
+            return $result->getError();
+        }
+
+
     }
 
     //更新数据
-    public function update91($id) {
+    public function update($id="") {
         $result = User::get($id);
         echo "<pre>";
         print_r($result);
