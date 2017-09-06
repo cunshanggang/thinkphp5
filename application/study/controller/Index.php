@@ -5,6 +5,7 @@ namespace app\study\controller;
 use think\Controller;
 use think\Loader;
 use think\Validate;
+use app\study\model\User;
 class Index extends Controller
 {
     public function index()
@@ -256,7 +257,147 @@ echo "<pre>";
 //        }
     }
 
-    public function hello() {
-        echo "Hello World!";
+    public function TestModel() {
+        //需要实例化的
+        /*
+//        $user = new User;
+//        $user->name = '林书豪';
+//        $user->age = '28';
+//        $user->sex = '1';
+//
+//        if($user->save()){
+//            return "插入成功";
+//        }else{
+//            return $user->getError();
+//        }
+        */
+
+        //不需实例化
+        $user['name'] = '易建联';
+        $user['age'] = '32';
+        $user['sex'] = '0';
+
+        if($result=User::create($user)) {
+            return $result->name.'插入成功';
+            //带提示的
+//            return $this->success("{$result->name}成功",url('Index/index'));
+        }else{
+            return '插入错误';
+        }
+
+    }
+
+    //批量添加
+    public function addList() {
+//        $csg = new User();
+//        $result = $csg->testCsg();
+//        echo $result;
+
+        $list = [
+            ['name'=>'北田小一郎','age'=>'36','sex'=>'0'],
+            ['name'=>'丰田章男','age'=>'46','sex'=>'0'],
+            ['name'=>'手冢治虫','age'=>'76','sex'=>'0']
+        ];
+
+        $user = new User();
+        if($user->saveAll($list)) {
+            return "批量插入成功!";
+        }else{
+//            echo "批量插入失败!";
+            //显示错误信息
+            return $user->getError();
+        }
+    }
+
+    //查询数据
+    public function read() {
+        //获取一条信息
+        /*
+        $result = User::get(1);
+        //结果是一个对象
+//        echo "<pre>";
+//        print_r($result);
+//        echo "</pre>";
+
+//        echo '姓名'.$result->name.'<br />';
+//        echo '年龄'.$result->age.'<br />';
+//        echo '性别'.$result->sex.'<br />';
+        */
+
+        /*
+        //根据字段来查询
+//        $result = User::getByName('林书豪');
+//        echo '姓名'.$result->name.'<br />';
+//        echo '年龄'.$result->age.'<br />';
+//        echo '性别'.$result->sex.'<br />';
+        */
+
+        /*
+        //根据用户自定义的字段来查询，多条件传入数组
+//        $result = User::get(['name'=>'丰田章男','age'=>'406']);
+//        echo '姓名'.$result->name.'<br />';
+//        echo '年龄'.$result->age.'<br />';
+//        echo '性别'.$result->sex.'<br />';
+        */
+
+        /*
+        //更复杂的查询则可以使用查询构建器来完成
+//        $result = User::where('name','手冢治虫')->find();
+//        echo '姓名'.$result->name.'<br />';
+//        echo '年龄'.$result->age.'<br />';
+//        echo '性别'.$result->sex.'<br />';
+        */
+
+        /*
+        //获取所有的列表
+//        $result = User::all(['sex'=>0,'name'=>'孙杨']);//带条件
+//        foreach($result as $k=>$v) {
+//            echo '姓名'.$v['name'].'<br />';
+//            echo '年龄'.$v['age'].'<br />';
+//            echo '性别'.$v['sex'].'<br />';
+//            echo "<hr>";
+//        }
+        */
+
+        /*
+        //使用数据库的查询构建器完成更多的条件查询
+        $result = User::where('id','>','3')->select();
+//        foreach($result as $k=>$v) {
+//            echo '姓名'.$v['name'].'<br />';
+//            echo '年龄'.$v['age'].'<br />';
+//            echo '性别'.$v['sex'].'<br />';
+//            echo "<hr>";
+//        }
+        //或者
+//        foreach($result as $user) {
+//            echo '姓名'.$user->name.'<br />';
+//            echo '年龄'.$user->age.'<br />';
+//            echo '性别'.$user->sex.'<br />';
+//            echo "<hr>";
+//        }
+        */
+    }
+
+    //更新数据
+    public function update91($id) {
+        $result = User::get($id);
+        echo "<pre>";
+        print_r($result);
+        echo "</pre>";
+//        $result['name'] = '林依蓝';
+//        $result['age'] = '24';
+//        $result['sex'] = '0';
+
+//        $result->name = '林依蓝';
+//        $result->age = '24';
+//        $result->sex = 1;
+//
+//        if(false !== $result->save()) {
+//            return '更新成功';
+//        }else{
+//            return $result->getError();
+//        }
+
+
     }
 }
