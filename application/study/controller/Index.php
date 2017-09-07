@@ -379,11 +379,11 @@ echo "<pre>";
     }
 
     //更新数据
-    public function update91($id) {
-        $result = User::get($id);
-        echo "<pre>";
-        print_r($result);
-        echo "</pre>";
+    public function update() {
+//        $result = User::get();
+//        echo "<pre>";
+//        print_r($result);
+//        echo "</pre>";
 //        $result['name'] = '林依蓝';
 //        $result['age'] = '24';
 //        $result['sex'] = '0';
@@ -398,6 +398,81 @@ echo "<pre>";
 //            return $result->getError();
 //        }
 
+        $result = User::get(1);
+        $result['name'] = '押井守';
+        $result['age'] = '68';
+        if(false !== $result->save()) {
+            return "更新成功";
+        }else{
+            return "更新失败";
+        }
+    }
 
+    //删除数据
+    public function delete() {
+        //第一种方法
+//        $result = User::get(50);
+//        if($result) {
+//            $result->delete();
+//            return "删除成功";
+//        }else{
+//            return "删除失败";
+//        }
+
+        //第二种方法
+        $result = User::destroy(49);
+        if($result) {
+            return "删除成功";
+        }else{
+            return "删除失败";
+        }
+
+    }
+
+    //使用读取器
+    public function getRead(){
+        $r = User::get(48);
+//        echo "<pre>";
+//        print_r($r);
+//        echo "</pre>";
+        echo $r->time;
+    }
+
+    //使用修改器
+    public function setRead(){
+        $r = new User;
+        $r->name='林书北';
+        $r->age='25';
+        $r->sex='0';
+        $r->time='2017-09-07';
+
+        if($r->save()){
+            return "插入成功";
+        }else{
+            return $r->getError();
+        }
+    }
+
+    //类型转换
+    public function transfer(){
+        $r = new User;
+        $r->name='林书炜';
+        $r->age='25';
+        $r->sex='0';
+        $r->time='2017-09-07';
+
+        if($r->save()){
+            return "插入成功";
+        }else{
+            return $r->getError();
+        }
+    }
+
+    //查询范围scope
+    public function showResult() {
+        $r = User::scope('name','age')->all();
+        echo "<pre>";
+        print_r($r);
+        echo "</pre>";
     }
 }
