@@ -9,7 +9,7 @@ namespace app\study\model;
 use think\Model;
 class User extends Model {
     //不含前缀名表
-    protected $name="student";
+    protected $name="user";
     //含有其他的前缀或者其他特定的表
 //    protected $table="";
 
@@ -41,5 +41,15 @@ class User extends Model {
     //age查询
     public function scopeAge($query){
         $query->where('age',25);
+    }
+
+    //定义关联的方法
+    public function profile() {
+        return $this->hasOne("Profile");
+}
+
+    //定义关联的方法
+    public function books() {
+        return $this->hasMany("Book");
     }
 }

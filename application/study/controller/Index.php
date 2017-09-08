@@ -6,6 +6,7 @@ use think\Controller;
 use think\Loader;
 use think\Validate;
 use app\study\model\User;
+use app\study\model\Profile;
 class Index extends Controller
 {
     public function index()
@@ -473,6 +474,117 @@ echo "<pre>";
         $r = User::scope('name','age')->all();
         echo "<pre>";
         print_r($r);
+        echo "</pre>";
+    }
+
+    //查询结果
+    public function showConnect() {
+        $r = User::get(5);
+        //获取User对象的nickname属性
+//        echo $r->nickname;
+        //获取User对象的Book关联对象
+//        dump($r->books());
+        //执行关联的Book对象的查询
+        $result = $r->books()->where('title','thinkphp')->find();
+//        echo "<pre>";
+//        print_r($result->title);
+//        echo "</pre>";
+    }
+
+    //添加书籍
+    public function addBook() {
+        $user = User::get(1);
+        $books = [
+            ['title'=>'ThinkPHP5快速入门','publish_time'=>'2017-09-08'],
+            ['title'=>'ThinkPHP5开发手册','publish_time'=>'2017-09-08']
+        ];
+        $user->books()->saveAll($books);
+        return '添加Book成功!';
+    }
+
+    //往档案(profile)添加数据
+    public function addProfile() {
+        $user = new User();
+        $user->name = 'thinkphp';
+        $user->password = '123456';
+        $user->nickname = '流年';
+        if($user->save()) {
+            //写入关联数据
+            $profile = new Profile();
+            $profile->truename = '刘晨';
+            $profile->birthday = '2017-09-08';
+            $profile->address = '广州市白云区圣地集团如家酒店十楼(020)';
+            $profile->email = 'thinkphp@qq.com';
+            $user->profile()->save($profile);
+            return "新增用户!";
+        }else{
+            return $user->getError();
+        }
+    }
+
+    //读取profile表
+    public function readProfile($id) {
+        //访问路径：http://localhost/thinkphp5/index.php/study/index/readProfile/id/7
+        $user = User::get($id);
+        echo $user->name.'<br />';
+        echo $user->nickname.'<br />';
+        echo $user->profile->truename.'<br />';
+        echo $user->profile->email.'<br />';
+    }
+
+    //更新profile表
+    public function updateProfile($id) {
+        $user = User::get($id);
+        $user->name = 'framework';
+        if($user->save()) {
+            //更新关联数据
+            $user->profile->email = 'liu21st@gmail.com';
+            $user->profile->save();
+            return '用户['.$user->name.']';
+        }else{
+            return $user->getError();
+        }
+    }
+
+    //删除关联数据
+    public function deleteProfile($id) {
+        $user = User::get($id);
+        if($user->delete()) {
+            $user->profile->delete();
+            return '用户名['.$user->name.']删除成功！';
+        }else{
+            return "删除失败!";
+        }
+    }
+
+    //查询books
+    public function readBook() {
+        /*
+        $user = User::get(1,'books');
+        $books = $user->books();//结果返回是：对象
+//        $books = $user->book;//结果返回是：数组
+//        dump($books);
+        */
+
+        $user = User::get(1);
+        //获取状态为1的关联数据
+        $books = $user->books()->where('status',1)->select();
+//        dump($books);
+        $book = $user->books()->getByTitle('ThinkPHP5快速入门');
+//        dump($book);
+//        echo $book->user_id;
+        //查询有写过书的作者
+//        $user = User::has('books')->select();
+//        echo "<pre>";
+//        print_r($user);
+//        echo "</pre>";
+        //查询有写过3本书的作者
+//        $user = User::has('books','>=','2')->select();
+//        dump($user);
+        //查询写过ThinkPHP5快速入门的作者
+        $user = User::hasWhere('books',['title'=>'ThinkPHP5快速入门'])->select();
+        echo "<pre>";
+        print_r($user);
         echo "</pre>";
     }
 }
