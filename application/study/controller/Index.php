@@ -660,11 +660,24 @@ echo "<pre>";
     public function readRole() {
         $user = User::getByNickname('张三');
 //        dump($user->roles);
-        $r =$user->roles;
-        echo $r['data'];
+        $r = $user->roles;
+//        echo $r[0]['title'];
+        echo $r['title'];
+//        echo "<pre>";
+//        print_r($user->roles);
+//        echo "</pre>";
+    }
+
+    //同样支持对多对关联使用预载入查询
+    public function readRole1() {
+        $user = User::get(2,'roles');
         echo "<pre>";
+        print_r(gettype($user->roles[0]));
+        echo '<br />';
+//        dump($user->roles);
         print_r($user->roles);
         echo "</pre>";
+//        dump($user->roles[0]->title);
     }
 
 }
