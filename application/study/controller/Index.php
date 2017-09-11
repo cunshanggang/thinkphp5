@@ -7,6 +7,7 @@ use think\Loader;
 use think\Validate;
 use app\study\model\User;
 use app\study\model\Profile;
+use app\study\model\Role;
 class Index extends Controller
 {
     public function index()
@@ -587,4 +588,83 @@ echo "<pre>";
         print_r($user);
         echo "</pre>";
     }
+
+    public function updateBook($id) {
+        //方法一
+//        $user = User::get($id);
+//        $book = $user->books()->getByTitle('ThinkPHP5开发手册');
+//        $book->title = 'ThinkPHP5快速入门123456';
+//        $book->save();
+
+        //方法二
+        $user = User::get($id);
+        $user->books()->where('title','ThinkPHP5快速入门123456')->update(['title'=>'ThinkPHP5开发手册']);
+    }
+
+    //删除数据
+    public function deleteBook($id) {
+        //删除部分
+//        $user = User::get($id);
+//        $book = $user->books()->getByTitle('ThinkPHP5开发手册');
+//        $book->delete();
+
+        //删除全部
+        $user = User::get($id);
+        if($user->delete()) {
+           //删除所有的关联的数据
+            $user->books()->delete();
+        }
+    }
+
+    //多对多关系 添加role
+    public function addRole() {
+        //添加单个角色
+//        $user = User::getByNickname('张三');
+//        //新增用户角色，并自动写入枢纽表
+//        $user->roles()->save(['name'=>'editor','title'=>'编辑']);
+//        return '用户新增角色成功!';
+
+        //添加多个角色
+//        $user = User::getByNickname('张三');
+//        //给当前用户添加多个用户角色
+//        $user->roles()->saveAll([
+//            ['name'=>'leader','title'=>'领导'],
+//            ['name'=>'admin','title'=>'管理员'],
+//        ]);
+//        return '用户新增角色成功';
+
+        //通过attach添加新角色
+//        $user = User::getByNickname('押井守');
+//        $user->roles()->attach(2);
+//        return '用户角色添加成功!!!';
+    }
+
+    //关联删除数据
+    public function deleteRole() {
+        //删除部分数据
+//        $user = User::get(9);
+//        $role = Role::getByName('admin');
+//        //删除关联数据，但不删除关联模型数据
+//        $user->roles()->detach($role);
+//        return '删除角色成功！！！888';
+
+        //删除全部数据
+        $user = User::getByNickname('张三');
+        $role = Role::getByName('editor');
+        //删除关联数据的同时删除关联模型的数据
+        $user->roles()->detach($role,true);
+        return '用户角色删除成功77987';
+    }
+
+    //查询数据
+    public function readRole() {
+        $user = User::getByNickname('张三');
+//        dump($user->roles);
+        $r =$user->roles;
+        echo $r['data'];
+        echo "<pre>";
+        print_r($user->roles);
+        echo "</pre>";
+    }
+
 }

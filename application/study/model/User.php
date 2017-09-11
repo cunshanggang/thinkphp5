@@ -52,4 +52,9 @@ class User extends Model {
     public function books() {
         return $this->hasMany("Book");
     }
+
+    //定义多对多
+    public function roles() {
+        return $this->belongsToMany('Role','tp_access');
+    }
 }
