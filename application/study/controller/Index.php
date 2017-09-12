@@ -671,13 +671,56 @@ echo "<pre>";
     //同样支持对多对关联使用预载入查询
     public function readRole1() {
         $user = User::get(2,'roles');
-        echo "<pre>";
-        print_r(gettype($user->roles[0]));
-        echo '<br />';
-//        dump($user->roles);
-        print_r($user->roles);
-        echo "</pre>";
+        //将数组里的对象转换成数组
+//        dump($user->toArray());
+        $r = $user->toArray();
+        echo $r['roles'][0]['title'];//三维数组
+//        echo "<pre>";
+//        print_r(gettype($user->roles[0]));
+//        echo '<br />';
+////        dump($user->roles);
+//        print_r($user->roles);
+//        echo "</pre>";
 //        dump($user->roles[0]->title);
+    }
+
+    //输出数组，将对象转换成数组
+    public function toArray($id='') {
+        $user = User::get($id);
+        echo "<pre>";
+        dump($user->toArray());
+        echo "</pre>";
+    }
+
+    //隐藏属性
+    public function hidden($id) {
+        $user = User::get($id);
+        dump($user->hidden(['create_time','update_time'])->toArray());
+    }
+
+    //指定属性
+    public function visible($id) {
+        $user = User::get($id);
+        dump($user->visible(['id','nickname','name'])->toArray());
+    }
+
+    //插入修改的属性
+    public function append($id='') {
+        $user = User::get($id);
+//        dump($user);
+        echo "<pre>";
+        dump($user->append(['status'])->toArray());
+        echo "</pre>";
+    }
+
+    //输出json格式
+    public function toJson($id) {
+        //方法一
+//        $user = User::get($id);
+//        dump($user->toJson());
+
+        //方法二
+        echo User::get($id);//直接输出
     }
 
 }

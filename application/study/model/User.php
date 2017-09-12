@@ -57,4 +57,10 @@ class User extends Model {
     public function roles() {
         return $this->belongsToMany('Role','tp_access');
     }
+
+    //修改器status,注：要与数据库的字段一致
+    protected function getStatusAttr($value) {
+        $status = ['-1'=>'删除','0'=>'禁用','1'=>'正常','2'=>'待审核'];
+        return $status[$value];
+    }
 }
