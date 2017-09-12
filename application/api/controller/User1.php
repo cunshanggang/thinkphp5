@@ -5,9 +5,10 @@
  * Date: 2017/9/12
  * Time: 17:18
  */
-namespace app\study\api\controller\v2;
-use app\study\api\model\User;
-class User{
+namespace app\api\controller;
+use think\Controller;
+use app\study\model\User;
+class User1 {
     // 获取用户信息
     public function read($id = 2)
     {
