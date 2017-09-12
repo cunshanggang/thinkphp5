@@ -723,4 +723,16 @@ echo "<pre>";
         echo User::get($id);//直接输出
     }
 
+    //读取用户列表
+    public function userList() {
+        $list = User::paginate(2);
+        $this->assign('list',$list);
+//        $this->assign('count',count($list));
+        //可以在这里定义样式的路径，也可以在config.php配置文件里面配置
+        $this->view->replace([
+            '__PUBLIC__' => '../../../public/static',
+        ]);
+        return $this->fetch('Index/index');
+    }
+
 }
