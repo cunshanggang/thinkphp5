@@ -150,7 +150,8 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => '\app\api\exception\Http',
+    //csg 如果使用了 \app\api\exception\Http 则返回的结果都是json格式
+    'exception_handle'       => '',
 
     // +----------------------------------------------------------------------
     // | 日志设置
