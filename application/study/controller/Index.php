@@ -314,17 +314,18 @@ echo "<pre>";
     //查询数据
     public function read() {
         //获取一条信息
-        /*
-        $result = User::get(1);
+        echo $_GET['889779'];exit;
+        $result = User::get(9);
+//        dump($result);
         //结果是一个对象
-//        echo "<pre>";
-//        print_r($result);
-//        echo "</pre>";
+        echo "<pre>";
+        print_r($result);
+        echo "</pre>";
 
 //        echo '姓名'.$result->name.'<br />';
 //        echo '年龄'.$result->age.'<br />';
 //        echo '性别'.$result->sex.'<br />';
-        */
+
 
         /*
         //根据字段来查询
@@ -727,8 +728,8 @@ echo "<pre>";
     public function userList() {
         $list = User::paginate(2);
         $this->assign('list',$list);
-//        $this->assign('count',count($list));
-        //可以在这里定义样式的路径，也可以在config.php配置文件里面配置
+        $this->assign('count',count($list));
+//        可以在这里定义样式的路径，也可以在config.php配置文件里面配置
         $this->view->replace([
             '__PUBLIC__' => '../../../public/static',
         ]);

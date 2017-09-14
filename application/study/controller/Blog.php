@@ -70,4 +70,9 @@ class Blog extends Controller
         $result = Blogs::destroy($id);
         return json($result);
     }
+
+    //利用表单删除信息,注意action=""的地址的撰写
+    public function del() {
+        return $this->fetch();//测试成功返回：1
+    }
 }

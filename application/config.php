@@ -156,14 +156,14 @@ return [
     // | 日志设置
     // +----------------------------------------------------------------------
 
-    'log'                    => [
-        // 日志记录方式，内置 file socket 支持扩展
-        'type'  => 'File',
-        // 日志保存目录
-        'path'  => LOG_PATH,
-        // 日志记录级别
-        'level' => [],
-    ],
+//    'log'                    => [
+//        // 日志记录方式，内置 file socket 支持扩展
+//        'type'  => 'File',
+//        // 日志保存目录
+//        'path'  => LOG_PATH,
+//        // 日志记录级别
+//        'level' => [],
+//    ],
 
     // +----------------------------------------------------------------------
     // | Trace设置 开启 app_trace 后 有效
@@ -236,12 +236,21 @@ return [
     ],
 
 
-    // 开启应用Trace调试
+    // 开启应用Trace调试：在页面的右下角会出现一个thinkphp的图标
     'app_trace' => true,
     // 设置Trace显示方式
     'trace' => [
         // 在当前Html页面显示Trace信息
         'type' => 'html',
+    ],
+
+    // 会在谷歌浏览器的console:info、sql、file,指定只能在谷歌浏览器可以进行调试
+    'log' => [
+        'type' => 'socket',
+        'host' => 'localhost',
+        'show_included_files' => true,
+        'force_client_ids' => ['slog_b6d7ef'],
+        'allow_client_ids' => ['slog_b6d7ef'],
     ],
 
 ];
