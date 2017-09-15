@@ -736,4 +736,11 @@ echo "<pre>";
         return $this->fetch('Index/index');
     }
 
+    //使用全局方法
+    public function myFirst() {
+        echo my_fun();
+        echo "<br />";
+        echo my_first();
+    }
+
 }
