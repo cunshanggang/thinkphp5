@@ -8,6 +8,7 @@ use think\Validate;
 use app\study\model\User;
 use app\study\model\Profile;
 use app\study\model\Role;
+use think\Session;
 class Index extends Controller
 {
     public function index()
@@ -741,6 +742,18 @@ echo "<pre>";
         echo my_fun();
         echo "<br />";
         echo my_first();
+    }
+
+    //使用session
+    public function mySession() {
+        //设置session
+        Session::set('name','csg');
+        Session::set('pwd','123456');
+        Session::set('status','1');
+        //读取session
+        echo Session::get('name');
+        echo Session::get('pwd');
+        echo Session::get('status');
     }
 
 }

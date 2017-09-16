@@ -14,4 +14,10 @@ return [
         '__ROOT__'=>'/',
     ],
 
+//    //配置session
+//    'session' => [
+//        'prefix' => 'think',
+//        'type' => '',
+//        'auto_start' => true,
+//    ],
 ];
