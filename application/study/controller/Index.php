@@ -747,13 +747,48 @@ echo "<pre>";
     //使用session
     public function mySession() {
         //设置session
-        Session::set('name','csg');
-        Session::set('pwd','123456');
-        Session::set('status','1');
+//        Session::set('name','csg');
+//        Session::set('pwd','123456');
+//        Session::set('status','12222');
         //读取session
-        echo Session::get('name');
-        echo Session::get('pwd');
-        echo Session::get('status');
+//        echo Session::get('name');
+//        echo Session::get('pwd');
+//        echo Session::get('status');
+
+        //加上前缀或者作用域
+//        Session::set('email','jamse_lin@gmail.com','csg');
+//        Session::set('lin','yaoming','yaoming');
+        //判断sessino是否已经存在了,1:存在，空的话为否
+//        echo Session::has('name');
+
+        //使用助手函数来进行判断,注意开头是小写
+//        echo session('?name');
+
+        //取值当前think的作用域
+//        echo session('name','','think');
+
+        //在模板输出
+//        Session::clear();
+//        Session:delete('csg.email');
+//        echo "<pre>";
+//        print_r($_SESSION);
+//        echo "</pre>";
+//        session(null);
+        $arr = array('name'=>array('yaoming'));
+//        Session::set('lin.name','yaoming','csg');
+//        Session::set('lin.name','yaoming','csg');
+
+
+//        echo "<pre>";
+//        print_r($_SESSION);
+//        echo "</pre>";
+        session('name.ym','yaoming','csg');
+//        session('star.yjl','yijianlian');
+//        echo "<pre>";
+//        print_r($_SESSION);
+//        echo "</pre>";
+        return $this->fetch('Index/index');
+
     }
 
 }
