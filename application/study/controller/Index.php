@@ -788,7 +788,18 @@ echo "<pre>";
 //        print_r($_SESSION);
 //        echo "</pre>";
         return $this->fetch('Index/index');
-
     }
 
+    //cookie怎么使用cookie
+    public function myCookie() {
+        //设置cookie
+        cookie('name','yaoming');
+        //删除cookie
+        cookie('name',null);
+        //读取cookie
+        echo cookie('name','');
+//        echo "<pre>";
+//        print_r($_COOKIE);
+//        echo "</pre>";
+    }
 }
