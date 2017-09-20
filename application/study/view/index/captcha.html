@@ -56,9 +56,10 @@
 <FORM method="post" class="form" action="{:url('check')}">
     输入验证码：<input type="text" class="text" name="code"><br/>
     <div>{:captcha_img()}</div>
+    <div><img src="{:captcha_src()}" alt="captcha" /></div>
     <INPUT type="submit" class="btn" value="提交">
-
-    <img src="{:captcha_src()}" alt="captcha" onclick="this.src='{:captcha_src()}'"  />
+    <img src="{:captcha_src()}" alt="captcha" onclick="javascript:this.src='{:captcha_src()}?tm='+Math.random();" style="cursor: pointer"/>
+    <img src="{:captcha_src()}" alt="captcha" onclick="this.src='{:captcha_src()}'" />
 </FORM>
 </body>
 </html>
