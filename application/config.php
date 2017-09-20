@@ -254,4 +254,14 @@ return [
         'allow_client_ids' => ['slog_b6d7ef'],
     ],
 
+    //配置验证码为中文
+    'captcha' => [
+// 使用中文验证码
+        'useZh' =>true,
+// 字体大小
+        'fontSize' => 35,
+// 验证码长度（位数）
+        'length' => 4,
+    ],
+
 ];
