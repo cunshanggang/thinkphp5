@@ -9,6 +9,7 @@ use app\study\model\User;
 use app\study\model\Profile;
 use app\study\model\Role;
 use think\Session;
+//use think\Captcha;
 class Index extends Controller
 {
     public function index()
@@ -805,6 +806,9 @@ echo "<pre>";
 
     //验证码的使用
     public function captcha() {
+//        $captcha = new think\Captcha();
+//        $captcha->fontSize = 30;
+//        $captcha->length   = 3;
         return $this->fetch('index/captcha');
     }
 

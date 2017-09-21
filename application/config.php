@@ -256,12 +256,19 @@ return [
 
     //配置验证码为中文
     'captcha' => [
-// 使用中文验证码
-        'useZh' =>true,
-// 字体大小
-        'fontSize' => 35,
-// 验证码长度（位数）
+    // 使用中文验证码
+//            'useZh' =>true,
+    // 字体大小
+        'fontSize' => 15,
+    // 验证码长度（位数）
         'length' => 4,
+    //验证码图片背景色
+        'bg' => [rand(200,255),rand(200,255),rand(200,255)],
+//    是否画混淆曲线
+        'useCurve' => false,
+//    是否添加杂点
+        'useNoise' => false,
+
     ],
 
 ];
