@@ -57,6 +57,8 @@
     输入验证码：<input type="text" class="text" name="code"><br/>
     <div>{:captcha_img()}</div>
     <INPUT type="submit" class="btn" value="提交">
+
+    <img src="{:captcha_src()}" alt="captcha" onclick="this.src='{:captcha_src()}'"  />
 </FORM>
 </body>
 </html>
