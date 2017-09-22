@@ -9,6 +9,7 @@ use app\study\model\User;
 use app\study\model\Profile;
 use app\study\model\Role;
 use think\Session;
+use think\Request;
 //use think\Captcha;
 class Index extends Controller
 {
@@ -819,5 +820,64 @@ echo "<pre>";
         } else {
             $this->success('验证码正确');
         }
+    }
+
+    //上传图片
+    public function upFile() {
+        return $this->fetch('index/upload');
+    }
+
+    public function up(Request $request) {
+        // 获取表单上传文件
+        $file = $request->file('file');
+        if (empty($file)) {
+            $this->error('请选择上传文件');
+        }
+        // 移动到框架应用根目录/public/uploads/ 目录下
+        // 路径：D:\www\htdocs\thinkphp5\public\uploads\20170922\c2557b90746f96f604589c83839b0098.png
+        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+        //限制只能上传jpg图片,如果上传的是png,则会报错：文件后缀名不允许
+//        $info = $file->validate(['ext'=>'jpg'])->move(ROOT_PATH.'public'.DS.'uploads');
+        //生成的路径和文件名：D:\www\htdocs\thinkphp5\public\uploads\c7\51e39e60e437bf2a32a9739af941a4.png
+//        $info = $file->rule('md5')->move(ROOT_PATH . 'public' . DS . 'uploads');
+        //上传路径：D:\www\htdocs\thinkphp5\public\uploads\59c4772e690f3.png
+//        $info = $file->rule('uniqid')->move(ROOT_PATH . 'public' . DS . 'uploads');
+        //上传保留图片的原名，不重新命名文件，路径有变化：
+        //路径：D:\www\htdocs\thinkphp5\public\uploads\weibo.png
+        //没有了已时间命名的文件夹
+//        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads','');
+        echo "<pre>";
+        print_r($info);
+        echo "</pre>";
+//        echo $info->getRealPath();exit;
+        if ($info) {
+            echo $info->getRealPath();exit;
+            $this->success('文件上传成功：' . $info->getRealPath());
+        } else {
+        // 上传失败获取错误信息
+            $this->error($file->getError());
+        }
+    }
+
+    //上传多文件
+    public function upMore(Request $request) {
+        // 获取表单上传文件
+        $files = $request->file('image');
+        $item = [];
+        foreach($files as $file){
+// 移动到框架应用根目录/public/uploads/ 目录下
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+            if($info){
+                $item[] = $info->getRealPath();
+            }else{
+// 上传失败获取错误信息
+                $this->error($file->getError());
+            }
+        }
+//        echo "<pre>";
+//        print_r($item);
+//        echo "</pre>";exit;
+        echo implode('<br/>',$item);
+//        $this->success('文件上传成功'.implode('<br/>',$item));
     }
 }

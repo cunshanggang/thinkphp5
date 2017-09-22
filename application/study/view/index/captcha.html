@@ -12,7 +12,7 @@
         .form{
               padding: 15px;
               font-size: 16px;
-          }
+        }
         .form .text {
             padding: 3px;
             margin:2px 10px;
@@ -29,21 +29,21 @@
               border: 1px solid #D4D4D4;
               cursor: pointer;
               background:#eee;
-          }
+        }
         a{
-                color: #868686;
-                cursor: pointer;
+            color: #868686;
+            cursor: pointer;
             }
         a:hover{
-                  text-decoration: underline;
-              }
+              text-decoration: underline;
+          }
         h2{
-                    color: #4288ce;
-                    font-weight: 400;
-                    padding: 6px 0;
-                    margin: 6px 0 0;
-                    font-size: 28px;
-                    border-bottom: 1px solid #eee;
+            color: #4288ce;
+            font-weight: 400;
+            padding: 6px 0;
+            margin: 6px 0 0;
+            font-size: 28px;
+            border-bottom: 1px solid #eee;
                 }
         div{margin:8px;}
         .info{padding: 12px 0;border-bottom:1px solid #eee;}
@@ -55,11 +55,25 @@
 <h2>验证码示例</h2>
 <FORM method="post" class="form" action="{:url('check')}">
     输入验证码：<input type="text" class="text" name="code"><br/>
+    <h1>第一种:助手函数</h1>
     <div>{:captcha_img()}</div>
+    <h1>直接调用</h1>
     <div><img src="{:captcha_src()}" alt="captcha" /></div>
     <INPUT type="submit" class="btn" value="提交">
+    <h1>点击重新获取，鼠标经过为手型</h1>
     <img src="{:captcha_src()}" alt="captcha" onclick="javascript:this.src='{:captcha_src()}?tm='+Math.random();" style="cursor: pointer"/>
+    <h1>点击重新获取，鼠标不是手型</h1>
     <img src="{:captcha_src()}" alt="captcha" onclick="this.src='{:captcha_src()}'" />
+    <h1>链接形式</h1>
+    <div><img id="verify_img" src="{:captcha_src()}" alt="验证码" onclick="refreshVerify()">
+        <a href="javascript:refreshVerify()">看不清?</a></div>
 </FORM>
 </body>
+<script type="text/javascript">
+    function refreshVerify() {
+        var ts = Date.parse(new Date())/1000;
+        var img = document.getElementById('verify_img');
+        img.src = "{:captcha_src()}?id="+ts;
+    }
+</script>
 </html>
