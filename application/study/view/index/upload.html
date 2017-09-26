@@ -73,9 +73,27 @@
     <!--选择文件：<INPUT type="file" class="file" name="image[]"><br/>-->
     <INPUT type="button" id="btn" value="增加一个文件">
     <INPUT type="submit" class="btn" value="提交">
+    <br>
 </FORM>
 </body>
 <script type="text/javascript">
+
+    //删除文件输入框
+    function rmv(obj) {
+//        alert(123);
+//        obj.remove();
+//        alert(obj.previousSibling);
+//        remove(obj.previousSibling);
+        var oForm = document.getElementById("myForm");//父节点：表单
+        var beforeNode = obj.previousSibling;//上一个节点：input:file节点
+        var nextNode = obj.nextSibling;//下一个节点：br
+//        alert(nextNode);
+//        alert(s);
+        obj.remove();
+        oForm.removeChild(beforeNode);
+        oForm.removeChild(nextNode);
+    }
+
     window.onload = function() {
         var oBtn = document.getElementById("btn");
         oBtn.onclick = function() {
@@ -98,41 +116,71 @@
             oDelBtn.type = "button";
             oDelBtn.value = "删除文件";
             oDelBtn.className = "delBtn";
-            oForm.appendChild(oB);
+            oDelBtn.setAttribute("onclick","rmv(this)");
+
             oForm.appendChild(newIpt);
             oForm.appendChild(oDelBtn);
+            oForm.appendChild(oB);
 
             var aDelBtn = document.getElementsByClassName("delBtn");
             var fileIpt = document.getElementsByClassName("file");
-            aDelBtn[0].onclick = function() {
+//            aDelBtn[0].onclick = function() {
 //                oForm.removeChild(fileIpt[0]);
 //                oForm.removeChild(aDelBtn[0]);
 //                alert(aDelBtn.length);
 //                alert(typeof(aDelBtn));
-            };
+//            };
 //            for(var i in aDelBtn) {
 //                aDelBtn[i].onclick = function() {
 //                oForm.removeChild(fileIpt[i]);
 //                oForm.removeChild(aDelBtn[i]);
 //                }
 //            }
-            for(var i=0;i<aDelBtn.length;i++) {
+
+//            for(var i = 0;i<aDelBtn.length;i++) {
+//            for(var i = aDelBtn.length-1;i>=0;i--) {
+
+//            for(var i = 0,len = aDelBtn.length;i<len;i++) {
 //                this.index = i;
 //                alert(i);
-                aDelBtn[i].index = i;
-                aDelBtn[i].onclick = function() {
+                //Bug：不能删除第一个 start
+//                /*
+//                aDelBtn[i].index = i;
+//                aDelBtn[i].onclick = function() {
+//                    this.remove();
+//                   alert(this.parentNode);
+//                    this.previousSibling.remove();
 //                    alert(i);
 //                    var j = i;
 //                    alert(this.index);
 //                    var fileIpt1 = document.getElementsByClassName("file");
 //                    alert(typeof(fileIpt[this.index].name));
-                oForm.removeChild(fileIpt[this.index]);
-                oForm.removeChild(aDelBtn[this.index]);
-                }
-            }
+//                    alert(this.previousSibling.type);
+//                    oForm.remove(this.previousSibling);
+
+//                        oForm.removeChild(fileIpt[this.index]);
+//                        oForm.removeChild(aDelBtn[this.index]);
+
+//            };
+//                 */
+                //Bug：不能删除第一个 end
+
+                //简化版，不能删除第一个 too start
+                /*
+                (function(index){
+                    aDelBtn[i].onclick = function(){
+//                        alert(index);
+                        oForm.removeChild(fileIpt[index]);
+                        oForm.removeChild(aDelBtn[index]);
+                    }
+                })(i);
+                */
+                //简化版，不能删除第一个 too end
+//
+//            }
+//
         };
-
-
     }
+
 </script>
 </html>
