@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传示例</title>
+    <style>
+        body {
+            font-family:"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size:16px;
+            padding:5px;
+        }
+        .form{
+              padding: 15px;
+              font-size: 16px;
+          }
+        .form .text {
+            padding: 3px;
+            margin:2px 10px;
+            width: 240px;
+            height: 24px;
+            line-height: 28px;
+            border: 1px solid #D4D4D4;
+        }
+        . form .btn{
+              margin:6px;
+              padding: 6px;
+              width: 120px;
+              font-size: 16px;
+              border: 1px solid #D4D4D4;
+              cursor: pointer;
+              background:#eee;
+          }
+        .form .file{
+                margin:6px;
+                padding: 6px;
+                width: 220px;
+                font-size: 16px;
+                border: 1px solid #D4D4D4;
+                cursor: pointer;
+                background:#eee;
+            }
+        a{
+            color: #868686;
+            cursor: pointer;
+        } a:hover{
+              text-decoration: underline;
+          }
+        h2{
+                color: #4288ce;
+                font-weight: 400;
+                padding: 6px 0;
+                margin: 6px 0 0;
+                font-size: 28px;
+          border-bottom: 1px solid #eee;
+      }
+        div{
+            margin:8px;
+        }
+        .info{
+              padding: 12px 0;
+              border-bottom: 1px solid #eee;
+          }
+        .copyright{
+            margin-top: 24px;
+            padding: 12px 0;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+<h2>文件上传示例</h2>
+<FORM method="post" enctype="multipart/form-data" id="myForm" class="form" action="{:url('upMore')}">
+    <!--选择文件：<INPUT type="file" class="file" name="image[]"><br/>-->
+    <INPUT type="button" id="btn" value="增加一个文件">
+    <INPUT type="submit" class="btn" value="提交">
+    <br>
+</FORM>
+</body>
+<script type="text/javascript">
+
+    //删除文件输入框
+    function rmv(obj) {
+//        alert(123);
+//        obj.remove();
+//        alert(obj.previousSibling);
+//        remove(obj.previousSibling);
+        var oForm = document.getElementById("myForm");//父节点：表单
+        var beforeNode = obj.previousSibling;//上一个节点：input:file节点
+        var nextNode = obj.nextSibling;//下一个节点：br
+//        alert(nextNode);
+//        alert(s);
+        obj.remove();
+        oForm.removeChild(beforeNode);
+        oForm.removeChild(nextNode);
+    }
+
+    window.onload = function() {
+        var oBtn = document.getElementById("btn");
+        oBtn.onclick = function() {
+            var oForm = document.getElementById("myForm");
+//            alert(oForm);
+            var oIpt = document.getElementsByTagName("input");
+//            alert(oIpt[0].type);//检测它的类型
+            //js检测一个变量是数组还是对象
+//            alert(typeof(oIpt));//结果：obj
+            var str = "选择文件：<INPUT type='file' class='file' name='image[]'><br/>";
+//            alert(str);
+//            oForm.insertAfter(oIpt[0],str);
+            var newIpt = document.createElement('input');//创建一个标签
+            var oB = document.createElement('br');//换行
+            var oDelBtn = document.createElement('input');
+            newIpt.type = "file";
+            newIpt.className = "file";
+            newIpt.name = "image[]";
+
+            oDelBtn.type = "button";
+            oDelBtn.value = "删除文件";
+            oDelBtn.className = "delBtn";
+            oDelBtn.setAttribute("onclick","rmv(this)");
+
+            oForm.appendChild(newIpt);
+            oForm.appendChild(oDelBtn);
+            oForm.appendChild(oB);
+
+            var aDelBtn = document.getElementsByClassName("delBtn");
+            var fileIpt = document.getElementsByClassName("file");
+//            aDelBtn[0].onclick = function() {
+//                oForm.removeChild(fileIpt[0]);
+//                oForm.removeChild(aDelBtn[0]);
+//                alert(aDelBtn.length);
+//                alert(typeof(aDelBtn));
+//            };
+//            for(var i in aDelBtn) {
+//                aDelBtn[i].onclick = function() {
+//                oForm.removeChild(fileIpt[i]);
+//                oForm.removeChild(aDelBtn[i]);
+//                }
+//            }
+
+//            for(var i = 0;i<aDelBtn.length;i++) {
+//            for(var i = aDelBtn.length-1;i>=0;i--) {
+
+//            for(var i = 0,len = aDelBtn.length;i<len;i++) {
+//                this.index = i;
+//                alert(i);
+                //Bug：不能删除第一个 start
+//                /*
+//                aDelBtn[i].index = i;
+//                aDelBtn[i].onclick = function() {
+//                    this.remove();
+//                   alert(this.parentNode);
+//                    this.previousSibling.remove();
+//                    alert(i);
+//                    var j = i;
+//                    alert(this.index);
+//                    var fileIpt1 = document.getElementsByClassName("file");
+//                    alert(typeof(fileIpt[this.index].name));
+//                    alert(this.previousSibling.type);
+//                    oForm.remove(this.previousSibling);
+
+//                        oForm.removeChild(fileIpt[this.index]);
+//                        oForm.removeChild(aDelBtn[this.index]);
+
+//            };
+//                 */
+                //Bug：不能删除第一个 end
+
+                //简化版，不能删除第一个 too start
+                /*
+                (function(index){
+                    aDelBtn[i].onclick = function(){
+//                        alert(index);
+                        oForm.removeChild(fileIpt[index]);
+                        oForm.removeChild(aDelBtn[index]);
+                    }
+                })(i);
+                */
+                //简化版，不能删除第一个 too end
+//
+//            }
+//
+        };
+    }
+
+</script>
+</html>
