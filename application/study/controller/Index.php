@@ -892,12 +892,37 @@ echo "<pre>";
             isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
         );
 
+        //强行拼装img路径
+        $r = explode('\\',$crop->getResult());
+        $url='http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+        $u = dirname(dirname(dirname((dirname($url)))));
+        $p = $u.'/'.$r[4].'/'.$r[5].'/'.$r[6];
         $response = array(
             'state' => 200,
             'message' => $crop->getMsg(),
-            'result' => $crop->getResult()
+//            'result' => $crop->getResult()
+            'result' => $p
         );
         echo json_encode($response);
 //        return $this->fetch(json_encode($response));
+//        echo "<pre>";
+//        print_r($response);
+//        echo "</pre>";
+    }
+
+    public function url() {
+        echo ROOT_PATH;
+        echo "<pre>";
+        print_r($_SERVER);
+        echo "</pre>";
+
+        $url='http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+        echo dirname(dirname(dirname((dirname($url)))));
+        echo "<hr>";
+        $str = "D:\\www\\htdocs\\thinkphp5\\public\\uploads\\20170928103237.png";
+        $r = explode('\\',$str);
+        echo "<pre>";
+        print_r($r);
+        echo "</pre>";
     }
 }
