@@ -5,9 +5,14 @@
     <title>上传excel</title>
 </head>
 <body>
+<h1>导入表格</h1>
 <form action="{:url('tools/excel')}" method="post" enctype="multipart/form-data">
     <input type="file" name="excel" />
     <input type="submit" value="提交"/>
+</form>
+<h1>导出表格</h1>
+<form action="{:url('tools/export')}" enctype="multipart/form-data" method="post">
+    <input type="submit" value="导出">
 </form>
 </body>
 </html>
