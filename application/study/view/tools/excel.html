@@ -14,5 +14,10 @@
 <form action="{:url('tools/export')}" enctype="multipart/form-data" method="post">
     <input type="submit" value="导出">
 </form>
+<h1>导入csv</h1>
+<form action="{:url('tools/csvExport')}" enctype="multipart/form-data" method="post">
+    <input type="file" name="csv" />
+    <input type="submit" value="导入">
+</form>
 </body>
 </html>
