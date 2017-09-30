@@ -162,4 +162,23 @@ class Tools extends Controller {
         echo "</pre>";
     }
 
+    //生成二维码
+    public function qrcode() {
+        $savePath = APP_PATH . '/../public/qrcode/';
+        $webPath = '/qrcode/';
+        $qrData = '村上岗，姚明';
+        $qrLevel = 'H';
+        $qrSize = '8';
+        $savePrefix = 'cunshanggang';
+        $pic = "";
+        if($filename = createQRcode($savePath, $qrData, $qrLevel, $qrSize, $savePrefix)){
+            $pic = $filename;
+        }
+//        echo "<img src='../../../public/qrcode/$pic'>";
+        $this->assign('pic',$pic);
+        return $this->fetch();
+
+//        \PHPQRCode\QRcode::png("Test", "/tmp/qrcode.png", 'L', 4, 2);
+    }
+
 }
