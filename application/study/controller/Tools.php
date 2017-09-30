@@ -86,6 +86,7 @@ class Tools extends Controller {
 //        print_r($list);
 //        echo "</pre>";exit;
 //        $list=Db::table("tp_information")->select();//查询数据，可以进行处理
+        //处理身份证的号码，避免在csv表格中数字变为科学计数法
 //        foreach ($list as $k=>$v) {
 //            $list[$k]['idcard'] = "'".$v['idcard'];
 //        }
@@ -93,7 +94,7 @@ class Tools extends Controller {
         $csv->put_csv($list,$csv_title);
     }
 
-    //导入csv
+    //导入csv,测试数据在data文件夹下的csv后缀名的文件
     public function csvExport()
     {
         if (request()->isPost()) {
@@ -104,35 +105,24 @@ class Tools extends Controller {
             }
             $handle = fopen($filename, 'r');
             $result = $this->input_csv($handle); //解析csv
-//            echo "<pre>";
-//            print_r($result);
-//            echo "</pre>";exit;
+
             $len_result = count($result);
             if($len_result==0){
                 echo '没有任何数据！';
                 exit;
             }
-//            $data_values = '';
-//            for ($i = 1; $i < $len_result; $i++) { //循环获取各字段值
-//                $name = iconv('gb2312', 'utf-8', $result[$i][0]); //中文转码
-//                $sex = iconv('gb2312', 'utf-8', $result[$i][1]);
-//                $age = $result[$i][2];
-//                $data_values .= "('$name','$sex','$age'),";
-//            }
+            $r = array();
             foreach($result as $k=>$v) {
-//                $result[$k][''];
                 foreach($v as $k1=>$v1) {
-                    $result[$k][$k1] = iconv('gb2312', 'utf-8', $result[$k][$k1]);
+                    $r[$k]['name'] = iconv('gb2312', 'utf-8', $v[1]);
+                    $r[$k]['age'] = iconv('gb2312', 'utf-8', $v[2]);
+                    $r[$k]['sex'] = iconv('gb2312', 'utf-8', $v[3]);
                 }
             }
-            echo "<pre>";
-            print_r($result);
-            echo "</pre>";exit;
-            $data_values = substr($data_values,0,-1); //去掉最后一个逗号
+            //去掉头部
+            array_shift($r);
+            $query = Db::table('csg_student')->insertAll($r);//exit;
             fclose($handle); //关闭指针
-            echo "<pre>";
-            print_r($data_values);
-            echo "</pre>";exit;
             if($query){
                 echo '导入成功！';
             }else{
@@ -154,4 +144,22 @@ class Tools extends Controller {
         }
         return $out;
     }
+
+    //使用数据库
+    public function db() {
+//        $r = db('user')->select();
+        $r = Db::name('user')->select();
+        echo "<pre>";
+        print_r($r);
+        echo "</pre>";
+    }
+
+    //不带前缀名的
+    public function db1() {
+        $r = Db::table('csg_student')->select();
+        echo "<pre>";
+        print_r($r);
+        echo "</pre>";
+    }
+
 }
