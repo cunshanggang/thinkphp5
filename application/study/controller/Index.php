@@ -519,7 +519,7 @@ echo "<pre>";
             $profile = new Profile();
             $profile->truename = '刘晨';
             $profile->birthday = '2017-09-08';
-            $profile->address = '广州市白云区圣地集团如家酒店十楼(020)';
+            $profile->address = '广州市白云区村上岗集团)';
             $profile->email = 'thinkphp@qq.com';
             $user->profile()->save($profile);
             return "新增用户!";

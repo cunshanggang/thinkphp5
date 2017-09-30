@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>省-市-县三级联动</title>
+    <link href="__PUBLIC__/static/bs/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper wrapper-content">
+    <h1>省-市-县三级联动</h1>
+    <div class="row col-sm-6">
+        <div class="col-sm-4">
+            <select class="form-control m-b" id="p">
+                <option value="0" data-id="0">不限区域</option>
+                {foreach name="province" item="vo"}
+                <option value="{$vo.name}" data-id="{$vo.id}">{$vo.name}</option>
+                {/foreach}
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control m-b" id="c" disabled>
+                <option value="0" data-id="0">请选择城市</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <select class="form-control m-b" id="a" disabled>
+                <option value="0" data-id="0">请选择区</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<script src="__PUBLIC__/static/bs/js/jquery.2.1.4.min.js"></script>
+<script src="__PUBLIC__/static/bs/js/bootstrap.min.js"></script>
+<script>
+    var area_url = "{:url('Tools/area')}";
+    $(function(){
+        //省市区,三级联动  ---- begin -----
+        $("#p").change(function(){
+            var pid = $(this).find("option:selected").attr('data-id');
+            //已经选择了省份，又不选择省份，改变属性
+            if( '0' == pid){
+                $("#pname").val('不限区域');
+                $("#c").html('<option value="0" data-id="0">选择城市</option>').attr('disabled', true);
+                $("#a").html('<option value="0" data-id="0">选择区</option>').attr('disabled', true);
+            }
+            if('0' == pid){
+                return ;
+            }
+            $.post(area_url, {'code' : pid}, function(res){
+
+                if(1 == res.code){
+                    var _html = '<option value="0" data-id="0">选择城市</option>';
+                    $.each(res.data, function(k, v){
+                        _html += '<option value="' + v.name + '" data-id="' + v.id + '">' + v.name + '</option>';
+                    });
+
+                    $('#c').html(_html);
+                }
+            }, 'json');
+            $("#c").removeAttr('disabled'); //去除不可选状态
+            $("#a").html('<option value="0" data-id="0">选择区</option>').attr('disabled', true);
+        });
+
+        $("#c").change(function(){
+            var cid = $(this).find("option:selected").attr('data-id');
+            //已经选择了城市，又不选择城市，改变属性
+            if( '0' == cid){
+                $("#cname").val('');
+                $("#a").html('<option value="0" data-id="0">选择区</option>').attr('disabled', true);
+            }
+            if( '0' == cid ){
+                return ;
+            }
+            $.post(area_url, {'code' : cid}, function(res){
+                if(1 == res.code){
+                    var _html = '<option value="0" data-id="0">选择区</option>';
+                    $.each(res.data, function(k, v){
+                        _html += '<option value="' + v.name + '" data-id="' + v.id + '">' + v.name + '</option>';
+                    });
+                    $('#a').html(_html);
+                }
+            }, 'json');
+            $("#a").removeAttr('disabled'); //去除不可选状态
+        });
+
+        $("#a").change(function(){
+            var aid = $(this).find("option:selected").attr('data-id');
+            if('0' == aid){
+                $("#aname").val('');
+            }
+        });
+        //---- end -----
+    });
+
+</script>
+</body>
+</html>
