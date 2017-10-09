@@ -201,4 +201,30 @@ class Tools extends Controller {
         return $this->fetch();
     }
 
+
+    //ajax+jQuery+上传文件
+    public function up() {
+        return $this->fetch('upload');
+    }
+     public function upload() {
+        // 获取上传文件
+        $file = request()->file('myfile');
+//         echo "<pre>";
+//         print_r($file);
+//         echo "</pre>";exit;
+        // 验证图片,并移动图片到框架目录下。
+        $info = $file -> validate(['size' => 512000,'ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png']) -> move(ROOT_PATH.'public'.DS.'uploads');
+        if($info){
+            // $info->getExtension();         // 文件扩展名
+            $mes = $info->getFilename();      // 文件名
+            echo '{"mes":"'.$mes.'"}';
+        }else{
+            // 文件上传失败后的错误信息
+            $mes = $file->getError();
+            echo '{"mes":"'.$mes.'"}';
+        }
+     }
 }
+
+
+

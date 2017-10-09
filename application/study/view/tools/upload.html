@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax+jQuery上传文件</title>
+</head>
+<body>
+<input type="file" name="imageFile" id="myfile" onchange="uploadImage();" />
+#######  选择图片后，触发事件。
+</body>
+<script type="text/javascript" src="__PUBLIC__/static/bs/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript">
+    function uploadImage() {
+//        alert('ddddddd');
+        // FormData对象，来发送二进制文件。
+        var formdata = new FormData();
+        // 将文件追加到 formdata对象中。
+        formdata.append("myfile", document.getElementById('myfile').files[0]);
+        $.ajax({
+            type: "POST",
+            url: "{:url('Tools/upload')}",
+            data: formdata,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (jqXHR) {
+                alert("发生错误：" + jqXHR.status);
+            },
+        });
+    }
+</script>
+</html>
