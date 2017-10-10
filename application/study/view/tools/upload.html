@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>ajax+jQuery上传文件</title>
+    <style type="text/css">
+        #tips{color:red;font-size:18px;}
+    </style>
 </head>
 <body>
-<input type="file" name="imageFile" id="myfile" onchange="uploadImage();" />
-#######  选择图片后，触发事件。
+<input type="file" name="imageFile" id="myfile" onchange="uploadImage();"/>
+<span id="tips"></span>
 </body>
 <script type="text/javascript" src="__PUBLIC__/static/bs/js/jquery.2.1.4.min.js"></script>
 <script type="text/javascript">
@@ -28,11 +31,29 @@
             // 告诉jQuery不要去设置Content-Type请求头
             contentType: false,
             dataType: "json",
+//            success: function (data,status,xhr) {
             success: function (data) {
-                console.log(data);
+//                $('#myfile').val('');
+//                $('#tips').html('上传成功!');
+//                console.log(data);
+                //判断是否上传成功，成功后提示成功，否则上传提示错误
+                if(data.flag == 1) {
+                    $('#myfile').val('');
+                    $('#tips').html('上传成功!');
+                }else{
+                    alert(data.mes);
+                }
+//                alert(data.mes);
+//                alert(data.flag);
+//                alert(status);
+//                alert(xhr.status);
             },
+//            error: function (jqXHR,textStatus,errorMessage) {
             error: function (jqXHR) {
-                alert("发生错误：" + jqXHR.status);
+//                alert("发生错误：" + jqXHR.status);
+//                console.log(jqXHR.status);
+                alert(jqXHR.status);
+//                alert(errorMessage.mes);
             },
         });
     }

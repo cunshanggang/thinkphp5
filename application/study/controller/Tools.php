@@ -206,24 +206,29 @@ class Tools extends Controller {
     public function up() {
         return $this->fetch('upload');
     }
-     public function upload() {
+
+    public function upload() {
         // 获取上传文件
         $file = request()->file('myfile');
-//         echo "<pre>";
-//         print_r($file);
-//         echo "</pre>";exit;
+    //         echo "<pre>";
+    //         print_r($file);
+    //         echo "</pre>";exit;
         // 验证图片,并移动图片到框架目录下。
-        $info = $file -> validate(['size' => 512000,'ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png']) -> move(ROOT_PATH.'public'.DS.'uploads');
+    //        $info = $file ->validate(['size' => 512000,'ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png'])->move(ROOT_PATH.'public'.DS.'uploads');//报错
+//         $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');//成功
+        $info = $file->validate(['ext'=>'jpg,png,jpeg'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         if($info){
             // $info->getExtension();         // 文件扩展名
             $mes = $info->getFilename();      // 文件名
-            echo '{"mes":"'.$mes.'"}';
+//            $this->success('文件上传成功!');
+            echo '{"flag":"1","mes":"'.$mes.'"}';
         }else{
             // 文件上传失败后的错误信息
             $mes = $file->getError();
-            echo '{"mes":"'.$mes.'"}';
+//            $this->error('文件上传失败!',url('Tools/up'));
+            echo '{"flag":"0","mes":"'.$mes.'"}';
         }
-     }
+    }
 }
 
 
