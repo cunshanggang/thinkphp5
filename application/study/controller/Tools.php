@@ -229,6 +229,18 @@ class Tools extends Controller {
             echo '{"flag":"0","mes":"'.$mes.'"}';
         }
     }
+
+    //ajax的使用
+    public function myAjax() {
+        return $this->fetch('ajax');
+    }
+
+    //ajax处理
+    public function ajax() {
+        echo "<pre>";
+        print_r($_REQUEST);
+        echo "</pre>";
+    }
 }
 
 
