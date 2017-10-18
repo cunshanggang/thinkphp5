@@ -214,7 +214,7 @@ class Tools extends Controller {
     //         print_r($file);
     //         echo "</pre>";exit;
         // 验证图片,并移动图片到框架目录下。
-    //        $info = $file ->validate(['size' => 512000,'ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png'])->move(ROOT_PATH.'public'.DS.'uploads');//报错
+//        $info = $file ->validate(['size' => 512000,'ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png'])->move(ROOT_PATH.'public'.DS.'uploads');//报错
 //         $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');//成功
         $info = $file->validate(['ext'=>'jpg,png,jpeg'])->move(ROOT_PATH . 'public' . DS . 'uploads');
         if($info){
@@ -237,9 +237,12 @@ class Tools extends Controller {
 
     //ajax处理
     public function ajax() {
-        echo "<pre>";
-        print_r($_REQUEST);
-        echo "</pre>";
+//        echo "<pre>";
+//        print_r($_REQUEST);
+//        echo "</pre>";
+
+//        echo '1';
+        return 1;
     }
 }
 
