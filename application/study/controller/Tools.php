@@ -12,6 +12,7 @@ use PHPExcel_IOFactory;
 use PHPExcel;
 use think\Db;
 use Csv\Csv;
+use app\study\model\User;
 class Tools extends Controller {
     public function __construct() {
         //如果没有这一句就会报错；
@@ -243,6 +244,36 @@ class Tools extends Controller {
 
 //        echo '1';
         return 1;
+    }
+
+    public function jsonp() {
+        $arr = array('1','2','3');
+//        echo "<pre>";
+//        print_r($arr);
+//        echo "</pre>";
+//        echo "<hr>";
+//        echo "<pre>";
+//        print_r(json($arr));
+//        echo "</pre>";
+//        echo "<pre>";
+//        print_r(json($arr));
+//        echo "</pre>";
+//        $j = json($arr);
+//        echo $j;
+        //jsonp数据格式
+//        jsonp();
+        //将数组直接转化为json
+//        $this->toJson();
+//        $user = Db::name('user')->select();//不能使用toJson，因为不是对象，是数组
+//        echo "<pre>";
+//        print_r($user);
+//        echo "</pre>";
+        $user = User::get(9);//必须使用model才可以使用toJson()
+//        echo "<pre>";
+//        print_r($user);
+//        echo "</pre>";
+//        echo $user->toJson();
+        return $user->toJson();
     }
 }
 
