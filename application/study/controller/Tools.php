@@ -275,6 +275,30 @@ class Tools extends Controller {
 //        echo $user->toJson();
         return $user->toJson();
     }
+
+    //thinkphp5中助手函数:json()的使用
+    public function json() {
+        $arr = array("1","2","3");
+        $a = array('name'=>'村上岗','gender'=>'male','age'=>'24','birthday'=>'1993-07-18');
+//        echo json($arr);//报错
+//        return json($arr);//正确
+        return json($a);
+    }
+
+    //练习使用数据库
+    public function useUser() {
+        $r = User::get(5);//获取到的是一个对象
+//        echo "<pre>";
+//        print_r($r->toArray());//将对象转换成数组
+//        echo $r->nickname;//访问属性,方法一
+//        echo $r['nickname'];//访问属性,方法二
+//        echo "</pre>";
+
+        //使用select
+        $obj = new User;
+//        $select = $obj->where()->select();
+
+    }
 }
 
 
