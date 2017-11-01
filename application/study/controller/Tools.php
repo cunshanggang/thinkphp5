@@ -146,7 +146,7 @@ class Tools extends Controller {
         return $out;
     }
 
-    //使用数据库
+    //1.使用数据库
     public function db() {
 //        $r = db('user')->select();
         $r = Db::name('user')->select();
@@ -155,13 +155,24 @@ class Tools extends Controller {
         echo "</pre>";
     }
 
-    //不带前缀名的
+    //2.不带前缀名的
     public function db1() {
         $r = Db::table('csg_student')->select();
         echo "<pre>";
         print_r($r);
         echo "</pre>";
     }
+
+    //3.使用数据库有前缀
+    public function db2() {
+        //助手函数
+        $r = db('user')->select();
+        echo "<pre>";
+        print_r($r);
+        echo "</pre>";
+    }
+
+    //
 
     //生成二维码
     public function qrcode() {
@@ -297,6 +308,37 @@ class Tools extends Controller {
         //使用select
         $obj = new User;
 //        $select = $obj->where()->select();
+
+    }
+
+    //查询数据库
+    public function myDb() {
+        //助手函数
+//        $r = db('user')->select();
+//        echo "<pre>";
+//        print_r($r);
+//        echo "</pre>";
+        //带条件where
+//        $re = db('user')->where('id',5)->find();
+//        echo "<pre>";
+//        print_r($re);
+//        echo "</pre>";
+        //更新数据
+//        db('user')->where('id',5)->update(['name'=>'村上岗']);
+//        $a = array('name'=>'林依蓝');
+//        db('user')->where('id',5)->update($a);
+        //多表查询join()
+//        $res = db('user as u')->join('book','u.id=book.user_id')->where('u.id','4')->select();
+        //sql语句
+        //SELECT * FROM tp_user as u INNER JOIN `tp_book` `book` ON `u`.`id`=`book`.`user_id` WHERE `u`.`id` = '4'
+//        echo "<pre>";
+//        print_r($res);
+//        echo "</pre>";
+        //新建视图
+        $result = db('user as u')->field('*')->view('book','*','u.id=book.user_id')->select();
+        echo "<pre>";
+        print_r($result);
+        echo "</pre>";
 
     }
 }
