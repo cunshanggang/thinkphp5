@@ -335,10 +335,55 @@ class Tools extends Controller {
 //        print_r($res);
 //        echo "</pre>";
         //新建视图
-        $result = db('user as u')->field('*')->view('book','*','u.id=book.user_id')->select();
-        echo "<pre>";
-        print_r($result);
-        echo "</pre>";
+//        $result = db('user as u')->field('*')->view('book','*','u.id=book.user_id')->select();
+//        echo "<pre>";
+//        print_r($result);
+//        echo "</pre>";
+        //使用order
+//        $r2 = db('user')->order('id','asc')->select();//默认是desc
+//        $sql = db('user as u')->join('book','u.id=book.user_id')->where('u.id','4')->fetchSql()->select();//打印sql语句
+//        echo $sql;
+//        echo "<hr>";
+//        echo "<pre>";
+//        print_r($r2);
+//        echo "</pre>";
+        //使用group()
+//        $r3 = db('user')->group('name')->select();
+//        $sql = db('user')->group('name')->fetchSql()->select();
+//        echo $sql;
+//        echo "<hr>";
+//        echo "<pre>";
+//        print_r($r3);
+//        echo "</pre>";
+        //使用存储过程
+//        $r4 = Db::query('call user5()');
+//        echo "<pre>";
+//        print_r($r4);
+//        echo "</pre>";
+        //使用事务进行操作
+        //自动控制事务处理
+//        Db::transaction(function(){
+//           $u = db('user')->where('id','5')->find();
+//           $u['name'] = 'yaoMing1';
+//           db('user')->where('id','15')->update($u);
+//        });
+        //手动控制事务
+        Db::startTrans();
+        try{
+//            $u = db('user')->where('id','5')->find();
+//            $u['name'] = 'yaoMing1';
+//            db('user')->where('id','5')->update($u);
+            $u = Db::table('user')->where('id','5')->find();
+            $u['name'] = 'yaoMing1';
+            Db::table('user')->where('id','5')->update($u);
+            echo 'try';
+            //提交事务
+            Db::commit();
+        }catch (\Exception $e) {
+            //回滚事务
+            echo 'catch';
+            Db::rollback();
+        }
 
     }
 }
