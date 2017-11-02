@@ -362,20 +362,28 @@ class Tools extends Controller {
 //        echo "</pre>";
         //使用事务进行操作
         //自动控制事务处理
-//        Db::transaction(function(){
-//           $u = db('user')->where('id','5')->find();
-//           $u['name'] = 'yaoMing1';
-//           db('user')->where('id','15')->update($u);
-//        });
+        Db::transaction(function(){
+           $u = db('user')->where('id','5')->find();
+           $u['name'] = 'yaoMing1';
+           db('user')->where('id','15')->update($u);
+        });
         //手动控制事务
         Db::startTrans();
         try{
+            //方法一
 //            $u = db('user')->where('id','5')->find();
-//            $u['name'] = 'yaoMing1';
+//            $u['name'] = 'yaoMing5';
 //            db('user')->where('id','5')->update($u);
-            $u = Db::table('user')->where('id','5')->find();
-            $u['name'] = 'yaoMing1';
-            Db::table('user')->where('id','5')->update($u);
+
+            //方法二
+//            $u = Db::name('user')->where('id','5')->find();
+//            $u['name'] = 'yaoMing3';
+//            Db::name('user')->where('id','5')->update($u);
+
+            //方法三
+//            $u = Db::table('user')->where('id','5')->find();//使用Db::table()报错
+//            $u['name'] = 'yaoMing2';
+//            Db::table('user')->where('id','5')->update($u);//使用Db::table()报错
             echo 'try';
             //提交事务
             Db::commit();
