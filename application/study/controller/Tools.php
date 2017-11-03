@@ -367,8 +367,9 @@ class Tools extends Controller {
            $u['name'] = 'yaoMing1';
            db('user')->where('id','15')->update($u);
         });
+        $user = Db::connect("tp");
         //手动控制事务
-        Db::startTrans();
+        $user->startTrans();
         try{
             //方法一
 //            $u = db('user')->where('id','5')->find();
@@ -376,21 +377,28 @@ class Tools extends Controller {
 //            db('user')->where('id','5')->update($u);
 
             //方法二
-//            $u = Db::name('user')->where('id','5')->find();
-//            $u['name'] = 'yaoMing3';
-//            Db::name('user')->where('id','5')->update($u);
+//            $u = Db::name('user')->where('id','15')->find();
+//            $u['name'] = 'yaoMing8';
+//            Db::name('user')->where('id','15')->update($u);
 
             //方法三
-//            $u = Db::table('user')->where('id','5')->find();//使用Db::table()报错
-//            $u['name'] = 'yaoMing2';
-//            Db::table('user')->where('id','5')->update($u);//使用Db::table()报错
-            echo 'try';
+//            $u = Db::table('tp_user')->where('id','5')->find();//使用Db::table()要使用表的全称，不能省去前缀
+//            $u['name'] = 'yaoMing6';
+//            Db::table('tp_user')->where('id','5')->update($u);//使用Db::table()要使用表的全称，不能省去前缀
+//            echo 'try';
+            $r = $user->name('tp_user')->where('id','5')->find();
+            echo "<pre>";
+            print_r($r);
+            echo "</pre>";
             //提交事务
-            Db::commit();
+            $user->commit();
         }catch (\Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());//打印错误的信息
+            echo "</pre>";
             //回滚事务
-            echo 'catch';
-            Db::rollback();
+//            echo 'catch';
+            $user->rollback();
         }
 
     }
