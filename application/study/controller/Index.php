@@ -928,6 +928,8 @@ echo "<pre>";
 
     public function varDefault() {
         $var1 = "This is a variable";
+        $html = "<h1>你好！姚明</h1>";
+        $this->assign("html",$html);
 //        $this->assign("var",$var);
         return $this->fetch('var');
     }
