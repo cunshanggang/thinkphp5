@@ -925,4 +925,10 @@ echo "<pre>";
         print_r($r);
         echo "</pre>";
     }
+
+    public function varDefault() {
+        $var1 = "This is a variable";
+//        $this->assign("var",$var);
+        return $this->fetch('var');
+    }
 }
