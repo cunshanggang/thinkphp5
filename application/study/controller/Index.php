@@ -933,4 +933,40 @@ echo "<pre>";
 //        $this->assign("var",$var);
         return $this->fetch('var');
     }
+
+    public function findUser() {
+        $userModel = new User();
+        $r = $userModel->users();
+        $res = User::all();
+        $res1 = User::get(2);
+//        echo "<pre>";
+//        print_r($res1->toArray());//查询单个数据可以使用toArray()
+//        echo "</pre>";
+//        echo "<hr>";
+//        echo "<pre>";
+//        print_r($res->toArray());
+//        echo "</pre>";
+//        echo "Test";
+//        echo "<pre>";
+//        print_r($r);
+//        echo "</pre>";
+        //将对象转换成数组 start
+//        foreach($r as $v) {
+//            $list = $v->toArray();
+//            echo "<pre>";
+//            print_r($list);
+//            echo "</pre>";
+//        }
+        //将对象转换成数组 end
+        $list = User::all();
+        if($list) {
+            $list = collection($list)->toArray();
+        }
+//        echo "<pre>";
+//        print_r($list);
+//        echo "</pre>";
+//        echo THINK_VERSION;//查看thinkphp的版本
+
+
+    }
 }
