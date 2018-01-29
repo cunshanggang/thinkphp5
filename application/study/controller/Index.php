@@ -987,4 +987,11 @@ echo "<pre>";
         print_r($arr);
         echo "</pre>";
     }
+
+    //带参数访问
+    public function argModel() {
+        $m = model("User");
+        $r = $m->haveArg("Yaoming");
+        echo $r;
+    }
 }

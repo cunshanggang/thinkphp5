@@ -70,4 +70,9 @@ class User extends Model {
         $status = ['-1'=>'删除','0'=>'禁用','1'=>'正常','2'=>'待审核'];
         return $status[$value];
     }
+
+    //有参数访问
+    public function haveArg($value) {
+        return $value."有参数的输出!";
+    }
 }
