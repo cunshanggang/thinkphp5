@@ -969,4 +969,22 @@ echo "<pre>";
 
 
     }
+
+    public function useModel() {
+        $m = model("User");
+        $r = $m->users;
+//        echo "<pre>";
+//        print_r($r);
+//        echo "</pre>";
+        $arr = array();
+        //将对象转换成数组
+        foreach($r as $k=>$v) {
+//            $arr = $v->toArray();
+            array_push($arr,$v->toArray());
+        }
+
+        echo "<pre>";
+        print_r($arr);
+        echo "</pre>";
+    }
 }
