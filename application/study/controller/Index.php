@@ -2,6 +2,7 @@
 namespace app\study\controller;
 //use test1\Test1;
 //use test1\Test1;
+//use first\second\Foo;
 use think\Controller;
 use think\Loader;
 use think\Validate;
@@ -116,8 +117,10 @@ class Index extends Controller
         //------- end ---------
 //        $hello = new \first\second\Foo();
 //        $hello->hello();
-        Loader::import('first.second.Foo');
-        $foo = new \Foo();
+//        Loader::import('first.second.Foo');
+//        require_once '../extend/first/second/Foo.php';
+        $foo = new \first\second\Foo();
+        echo $foo->hello();exit;
 //        echo "<pre>";
 //        print_r($foo);
         echo "54545";
