@@ -16,10 +16,13 @@ class Logs extends Controller
 //        trace('Test Log','error');
         $log = new Log();
         $log::write('test log','error');
-//        $this->recordErrorLog();
+        $this->recordErrorLog();
 //        Log::record('测试日志信息');
 
-        Log::init(['type' => 'File', 'path' => LOG_PATH]);
+//        Log::init(['type' => 'File', 'path' => LOG_PATH]);
+        Log::write('test log', 'error');
+//        Log::init(['type' => 'File', 'path' => APP_PATH . 'wxpay_logs/']);
+//        Log::write('wx支付日志');
 //        Log::write('wx支付日志');
     }
 
@@ -28,7 +31,7 @@ class Logs extends Controller
     {
         log::init([
             'type' => 'File',
-//            'path' => LOG_PATH,
+            'path' => LOG_PATH,
             'level' => ['error']
         ]);
         Log::record('111', 'error');
