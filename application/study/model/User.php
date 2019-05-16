@@ -12,7 +12,14 @@ class User extends Model {
     protected $name="user";
     //含有其他的前缀或者其他特定的表
 //    protected $table="";
+//    protected $table="tp_user";
+// 设置返回数据集的对象名
+    protected $resultSetType = 'collection';
 
+    //查询数据
+    public function users() {
+       return $this->select();
+    }
     //测试
     public function testCsg() {
         return '你好，村上岗';
@@ -62,5 +69,10 @@ class User extends Model {
     protected function getStatusAttr($value) {
         $status = ['-1'=>'删除','0'=>'禁用','1'=>'正常','2'=>'待审核'];
         return $status[$value];
+    }
+
+    //有参数访问
+    public function haveArg($value) {
+        return $value."有参数的输出!";
     }
 }

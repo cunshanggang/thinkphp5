@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用ajax传输数据</title>
+</head>
+<body>
+<form action="" id="myForm">
+    <input type="text" placeholder="" name="userName" id="userName">
+    <br>
+    <br>
+    <input type="password" placeholder="" name="pwd" id="pwd">
+    <br>
+    <br>
+    <input type="button" id="btn" value="提交">
+</form>
+</body>
+<script type="text/javascript" src="__PUBLIC__/static/bs/js/jquery.2.1.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+//        var oBtn = $('#btn');
+        $('#btn').on("click",function() {
+//            alert(1122);
+            var userName = $("#userName").val();
+            var pwd = $("#pwd").val();
+            var jsonData = {"user":userName,"password":pwd};//包装json数据
+//            alert(userName);
+//            alert(pwd);
+
+            $.ajax({
+                type:"post",
+                url:"{:url('Tools/ajax')}",
+//                data:{"user":userName,"password":pwd},//直接发json数据
+                data:jsonData,
+                dataType:"json",
+                success:function (msg) {
+                    alert(msg);
+                },
+                complete:function (XMLHttpRequest,textStatus) {
+                    //XMLHttpRequest对象的5个属性
+                    //1.XMLHttpRequest.responseText：返回的文本
+                    //2.XMLHttpRequest.responseXML：返回的XML数据格式
+                    //3.XMLHttpRequest.status：描述HTTP响应的状态
+                    //4.XMLHttpRequest.statusText：描述HTTP响应的状态，当且仅当readyState值为3或4才可用，当readyState为其他值时试图存取statusText属性将引发一个异常
+                    //5.XMLHttpRequest.readyStatus：5个状态
+                        // 0：（未初始化）还没有调用send()方法
+                        // 1：（载入）已调用send()方法，正发送请求
+                        // 2：（载入完成）send()方法执行完成，已经收到全部响应内容
+                        // 3：（交互）正在解析响应内容
+                        // 4：（完成）响应内容解析完成，可以在客户端调用了
+                    //---------------------------------------------------------
+                    //textStatus的值：success,not modified,no content,error,timeout,abort,parse error
+                },
+                error:function (XMLHttpRequest,textStatus,errorThrown) {
+                    //XMLHttpRequest
+                    // 分为两个状态 ：
+                    // HTTP响应状态:XMLHttpRequset.status
+                    // 1开头：1xx——信息类，表示收到Web浏览器请求，正在进一步的处理中。如，100：客户必须继续发出请求；101：客户要求服务器根据请求转换HTTP协议版本
+                    // 2开头：2xx——成功，表示用户请求被正确接收，理解和处理。例如，200：OK；201：提示知道新文件的URL
+                    // 3开头：3xx——重定向，表示请求没有成功，客户必须采取进一步的动作。如，300：请求的资源可在多处得到；301：删除请求数据
+                    // 4开头：4xx——客户端错误，表示客户端提交的请求有错误。如，404：NOT Found，意味着请求中所引用的文档不存在。
+                    // 5开头：5xx——服务器错误，表示服务器不能完成对请求的处理。如，500，服务器产生内部错误
+                    //------------------------------------------------------------------------
+                    //textStatus的值：
+                    // 1.null
+                    // 2.timeout：超时
+                    // 3.error：错误
+                    // 4.abort
+                    // 5.parser error：语法错误
+                    //-----------------------------------------------------------------------
+                    //errorThrow的值：收到http出错的文本，如：Not Found 或 Internal Server Error
+                }
+            });
+        })
+    })
+</script>
+</html>

@@ -2,6 +2,7 @@
 namespace app\study\controller;
 //use test1\Test1;
 //use test1\Test1;
+//use first\second\Foo;
 use think\Controller;
 use think\Loader;
 use think\Validate;
@@ -116,8 +117,10 @@ class Index extends Controller
         //------- end ---------
 //        $hello = new \first\second\Foo();
 //        $hello->hello();
-        Loader::import('first.second.Foo');
-        $foo = new \Foo();
+//        Loader::import('first.second.Foo');
+//        require_once '../extend/first/second/Foo.php';
+        $foo = new \first\second\Foo();
+        echo $foo->hello();exit;
 //        echo "<pre>";
 //        print_r($foo);
         echo "54545";
@@ -519,7 +522,7 @@ echo "<pre>";
             $profile = new Profile();
             $profile->truename = '刘晨';
             $profile->birthday = '2017-09-08';
-            $profile->address = '广州市白云区圣地集团如家酒店十楼(020)';
+            $profile->address = '广州市白云区村上岗集团)';
             $profile->email = 'thinkphp@qq.com';
             $user->profile()->save($profile);
             return "新增用户!";
@@ -924,5 +927,74 @@ echo "<pre>";
         echo "<pre>";
         print_r($r);
         echo "</pre>";
+    }
+
+    public function varDefault() {
+        $var1 = "This is a variable";
+        $html = "<h1>你好！姚明</h1>";
+        $this->assign("html",$html);
+//        $this->assign("var",$var);
+        return $this->fetch('var');
+    }
+
+    public function findUser() {
+        $userModel = new User();
+        $r = $userModel->users();
+        $res = User::all();
+        $res1 = User::get(2);
+//        echo "<pre>";
+//        print_r($res1->toArray());//查询单个数据可以使用toArray()
+//        echo "</pre>";
+//        echo "<hr>";
+//        echo "<pre>";
+//        print_r($res->toArray());
+//        echo "</pre>";
+//        echo "Test";
+//        echo "<pre>";
+//        print_r($r);
+//        echo "</pre>";
+        //将对象转换成数组 start
+//        foreach($r as $v) {
+//            $list = $v->toArray();
+//            echo "<pre>";
+//            print_r($list);
+//            echo "</pre>";
+//        }
+        //将对象转换成数组 end
+        $list = User::all();
+        if($list) {
+            $list = collection($list)->toArray();
+        }
+//        echo "<pre>";
+//        print_r($list);
+//        echo "</pre>";
+//        echo THINK_VERSION;//查看thinkphp的版本
+
+
+    }
+
+    public function useModel() {
+        $m = model("User");
+        $r = $m->users;
+//        echo "<pre>";
+//        print_r($r);
+//        echo "</pre>";
+        $arr = array();
+        //将对象转换成数组
+        foreach($r as $k=>$v) {
+//            $arr = $v->toArray();
+            array_push($arr,$v->toArray());
+        }
+
+        echo "<pre>";
+        print_r($arr);
+        echo "</pre>";
+    }
+
+    //带参数访问
+    public function argModel() {
+        $m = model("User");
+        $r = $m->haveArg("Yaoming");
+        echo $r;
     }
 }
