@@ -20,7 +20,7 @@ class Index extends Controller
             'name' => 'yaoMing',
             'gender' => 'male',
             'height' => '2.260m',
-	        'nation' => 'China'
+	        'nation' => '中国'
         );
 
 //        $view = new View;
