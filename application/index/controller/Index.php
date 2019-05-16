@@ -19,7 +19,8 @@ class Index extends Controller
         $list = array(
             'name' => 'yaoMing',
             'gender' => 'male',
-            'height' => '2.260m'
+            'height' => '2.260m',
+	        'nation' => 'China'
         );
 
 //        $view = new View;
